@@ -11,7 +11,8 @@
 #profile::-webkit-scrollbar { 
   display: none;
 }
-.profile-icon img{
+
+.profile-icon{
   height: 200px;
   border-radius: 100%;
   border: solid 3px rgb(210, 212, 211);
@@ -19,7 +20,7 @@
   transform-style: preserve-3d;
 }
 
-.profile-icon img:hover {
+.profile-icon:hover {
   transform: rotateY(720deg);
 }
 
@@ -47,7 +48,7 @@
   list-style: none;
 }
 
-.timeline-item > div {
+.timeline-point {
   position: absolute;
   width: 15px;
   height: 15px;
