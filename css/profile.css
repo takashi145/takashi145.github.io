@@ -15,7 +15,7 @@
 .profile-icon{
   height: 200px;
   border-radius: 100%;
-  border: solid 3px rgb(106, 253, 87);
+  border: solid 3px rgba(225, 227, 226, 0.97);
   transition: transform 3s;
   transform-style: preserve-3d;
 }
