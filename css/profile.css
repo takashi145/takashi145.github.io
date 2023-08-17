@@ -15,7 +15,7 @@
 .profile-icon{
   height: 200px;
   border-radius: 100%;
-  border: solid 3px rgb(210, 212, 211);
+  border: solid 3px rgb(106, 253, 87);
   transition: transform 3s;
   transform-style: preserve-3d;
 }
@@ -25,7 +25,7 @@
 }
 
 .profile-details h2 {
-  margin-top: 0px;
+  margin-top: 10px;
   font-family: serif;
   text-align: center;
 }
@@ -57,4 +57,20 @@
   margin-top: 1.5px;
   left: -10px;
   border: 1px solid white;
+}
+
+@media (prefers-color-scheme: dark) {
+  #profile {
+    background-color: rgba(0, 0, 0, 0.897);
+    color: rgba(255, 255, 255, 0.701);
+  }
+  
+  .profile-icon{
+    border: solid 3px rgba(225, 227, 226, 0.97);
+  }
+
+  .timeline-point {
+    background-color: rgb(120, 118, 118);
+    border: 1px solid white;
+  }
 }

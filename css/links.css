@@ -1,6 +1,6 @@
 
 #links {
-  max-height: 480px;
+  max-height: 520px;
   min-width: fit-content;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -15,7 +15,7 @@
 }
 
 .link-item {
-  height: 80px; /* 明示的に高さを指定する */
+  height: 80px;
 }
 
 .link-item a {
@@ -55,4 +55,28 @@
 .link-icon svg {
   height: 100%;
   width: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  #links {
+    background-color: rgba(0, 0, 0, 0.897);
+    color: rgb(218, 216, 216);
+  }
+  
+  .link-name {
+    color: #cdcbcb;
+  }
+
+  .link-icon {
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+  }
+
+  .link-icon {
+    background-color: rgb(207, 204, 204);
+  }
+
+  .link-item > a:hover .link-icon {
+    background-color: rgb(244, 240, 240);
+  }
 }

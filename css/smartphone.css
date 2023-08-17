@@ -63,16 +63,21 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8;
-  box-shadow: 1px 1px 4px #ccc;
+  box-shadow: 1px 1px 1px #ccc;
   border: solid 1px rgb(220, 217, 217);
 }
 
-.bottom-navbar a {
+.bottom-navbar > a {
   display: flex;
   justify-content: center;
   align-items: center;
   color: rgb(84, 160, 231);
   text-decoration: none;
+  margin: auto;
+}
+
+.bottom-navbar > a:hover {
+  scale: 1.1;
 }
 
 .sections {
@@ -82,3 +87,19 @@
   scroll-snap-align: start;
 }
 
+@media (prefers-color-scheme: dark) {
+  .sumaho {
+    background-color: #10100f;
+    border: solid 1px rgb(228, 231, 228);
+  }
+  
+  .bottom-navbar {
+    background-color: rgb(54, 53, 53);
+    border: solid 1px rgb(134, 132, 132);
+    box-shadow: 0 0;
+  }
+  
+  .bottom-navbar > a {
+    color: rgb(111, 184, 253);
+  }
+}
