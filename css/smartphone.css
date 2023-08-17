@@ -2,7 +2,7 @@
   width: 320px;
   height: 620px;
   border-radius: 20px;
-  background-color: #000;
+  background-color: #10100f;
   position: relative;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
   border: solid 1px white;
@@ -28,7 +28,6 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 10px;
 }
 
 .screen-content::-webkit-scrollbar { 
@@ -60,9 +59,9 @@
   background-color: rgb(249, 246, 246);
   border-radius: 20px;
   margin: 0 auto;
-  padding: 6px;
+  padding: 10px 6px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 8;
   box-shadow: 1px 1px 4px #ccc;
   border: solid 1px rgb(220, 217, 217);
