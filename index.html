@@ -15,10 +15,11 @@
   <!-- スタイルシート -->
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/smartphone.css">
+  <link rel="stylesheet" href="/css/lock.css">
   <link rel="stylesheet" href="/css/profile.css">
   <link rel="stylesheet" href="/css/links.css">
 
-  <!-- vue -->
+  <!-- vue.js -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
@@ -29,11 +30,62 @@
 
       <!-- スマホのスクリーン -->
       <div class="screen-content">
-        <!-- 日付 -->
-        <div class="now-time">{{ nowTime }}</div>
+        <div class="screen-top">
+          <!-- 現在時刻 -->
+          <div class="now-time">{{ nowTime }}</div>
+
+          <!-- バッテリー情報 -->
+          <div class="battery" style="color: white; margin-right: 8px; display: flex; align-items: center;">
+            <!-- バッテリー残量に応じてアイコン表示 -->
+            <i v-if="batteryPercentage >= 80" class="fa fa-battery-full"></i>
+            <i v-else-if="batteryPercentage >= 60" class="fa fa-battery-three-quarters"></i>
+            <i v-else-if="batteryPercentage >= 40" class="fa fa-battery-half"></i>
+            <i v-else-if="batteryPercentage >= 20" class="fa fa-battery-quarter" style="color: rgb(173, 63, 63);"></i>
+            <i v-else class="fa fa-battery-empty"></i>
+
+            <!-- 充電中の場合に表示 -->
+            <i v-if="isCharging" class="fa-solid fa-bolt fa-2xs" style="margin-left: 3px;"></i>
+          </div>
+        </div>
         
+        <!-- 画面セクション -->
         <div class="section-container">
-          <!-- プロフィール -->
+          <!-- ロック画面 -->
+          <transition name="fade">
+            <section 
+              v-if="showLockSection" 
+              class="sections lock"
+            >
+              <!-- ロックアイコン -->
+              <i class="fa-solid fa-lock fa-lg" style="color: white"></i>
+
+              <!-- パスコードの入力状態表示 -->
+              <div class="passcode">
+                <p>4桁のパスコードを入力してください。</p>
+                <div>
+                  <span v-for="n in passcode.length" :key="n">・</span>
+                </div>
+              </div>
+
+              <!-- キーパッド -->
+              <div class="keypad">
+                <button
+                 v-for="n in 9"
+                 :key="n"
+                 @click="addPasscodeNum(n)"
+                >
+                  {{ n }}
+                </button>
+                <div></div>
+                <button @click="addPasscodeNum(0)">0</button>
+              </div>
+
+              <!-- パスコードのクリアボタン -->
+              <button @click="passcode = ''" class="clear">クリア</button>
+            </section>
+          </transition>
+
+          <!-- プロフィール画面 -->
           <section id="profile" class="sections">
             <img src="https://avatars.githubusercontent.com/u/84027833?v=4" alt="takashi145" class="profile-icon">
             <div class="profile-details">
@@ -48,11 +100,11 @@
               </li>
             </ol>
           </section>
-
-          <!-- サイトリンク -->
+          
+          <!-- サイトのリンク一覧画面（1画面に最大15個のリンク） -->
           <section v-for="linkSection in linkSections" :key="linkSection.id" class="sections links">
             <div v-for="(link, index) in linkSection.items" :key="index" class="link-item">
-              <a :href="link.url">
+              <a :href="link.url" target="_blank" rel="noopener noreferrer">
                 <div class="link-icon">
                   <i :class="link.icon"></i>
                 </div>
@@ -70,17 +122,23 @@
 
     createApp({
       setup() {
+        const showLockSection = ref(true); // ロック画面の表示状態
         const timeline = ref([]);
         const linkSections = ref([]);
-
         const nowTime = ref('');
+        const batteryPercentage = ref(null); // バッテリーの残量パーセント
+        const isCharging = ref(false); // 充電状態
+        const passcode = ref('');
         
         onMounted(async () => {
+          // jsonファイルを読み込む
           const response = await fetch('./data.json');
           const data = await response.json();
 
+          // タイムラインのデータを設定
           timeline.value = data.timeline;
 
+          // サイトのリンクデータを設定
           data.links.forEach((link, index) => {
             const i = Math.floor(index / 15);
             
@@ -95,11 +153,30 @@
             });
           });
 
+          // バッテリー状態を取得
+          if ("getBattery" in navigator) {
+            const battery = await navigator.getBattery();
+            batteryPercentage.value = battery.level * 100;
+            isCharging.value = battery.charging;
+
+            // バッテリー状態が変更された時のイベントリスナー
+            battery.addEventListener('levelchange', () => {
+              batteryPercentage.value = battery.level * 100;
+            });
+            
+            // 充電状態が変更された時のイベントリスナー
+            battery.addEventListener('chargingchange', () => {
+              isCharging.value = battery.charging;
+            });
+          }
+
+          // 現在時刻の更新
           setInterval(() => {
             clock();
           }, 1000);
         });
 
+        // 文字列を指定した長さに切り取る
         const lengthLimitText = (text, maxLen = 6) => {
           if (text.length > maxLen) {
             return text.substring(0, maxLen) + "...";
@@ -107,11 +184,28 @@
           return text;
         }
 
+        // 現在時刻を取得する
         const clock = () => {
           let date = new Date();
           let hour = date.getHours();
           let minute = date.getMinutes();
           nowTime.value = hour.toString().padStart(2, "0") + ':' + minute.toString().padStart(2, "0");
+        }
+
+        // パスコードに数字を追加する
+        const addPasscodeNum = num => {
+          passcode.value += num.toString();
+          
+          // パスコードが4桁になったら認証
+          if(passcode.value.length === 4) {
+            // パスコードが1234と一致したら認証成功（1234の部分は自由に変更）
+            if (passcode.value === '1234') {
+              showLockSection.value = false;
+            } else {
+              alert('失敗');
+            }
+            passcode.value = '';
+          }
         }
 
         clock();
@@ -120,6 +214,11 @@
           nowTime,
           timeline,
           linkSections,
+          showLockSection,
+          batteryPercentage,
+          isCharging,
+          passcode,
+          addPasscodeNum,
         }
       }
     }).mount('#app');

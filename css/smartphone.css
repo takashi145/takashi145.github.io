@@ -20,12 +20,22 @@
   z-index: 100;
 }
 
-.now-time {
+.screen-top {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 3px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+.now-time {
   font-size: small;
-  padding: 3px 10px;
+  padding-left: 8px;
+}
+
+.color-mode {
+  padding-right: 8px;
 }
 
 .screen-content {
@@ -60,11 +70,23 @@
 
 .sections {
   width: 300px;
+  height: 520px;
   flex: 0 0 auto;
-  padding: 50px 12px;
+  padding: 50px 12px 20px 12px;
   box-sizing: border-box;
   scroll-snap-align: start;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 2s;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+.fade-enter-to, .fade-leave-from {
+  opacity: 1;
+}
+
 
 @media(prefers-color-scheme: dark) {
   .sumaho {

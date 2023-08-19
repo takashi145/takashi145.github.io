@@ -1,0 +1,81 @@
+.lock {
+  transition: opacity 1s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.lock > i {
+  margin-bottom: 20px;
+}
+
+.passcode {
+  min-height: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.passcode > p {
+  font-size: small;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 40px;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.keypad > button {
+  height: 50px;
+  width: 50px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: large;
+  opacity: 0.8;
+}
+
+.keypad > button:hover {
+  opacity: 1;
+}
+
+.lock > .clear {
+  border: none;
+  background: none;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.lock > .clear:hover {
+  opacity: 1;
+}
+
+@media(prefers-color-scheme: dark) {
+  .lock {
+    background-color: rgb(36, 35, 35);
+  }
+
+  .keypad > button {
+    background-color: rgba(6, 6, 6, 0.322);
+    color: white;
+  }
+
+  .passcode {
+    color: white;
+  }
+
+  .lock > .clear {
+    color: white;
+  }
+}
