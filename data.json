@@ -1,4 +1,18 @@
 {
+  "timeline": [
+    {
+      "event": "高校卒業"
+    },
+    {
+      "event": "大学入学"
+    },
+    {
+      "event": "就活"
+    },
+    {
+      "event": "就活"
+    }
+  ],
   "links": [
     {
       "url": "https://github.com/takashi145",
@@ -12,7 +26,112 @@
     },
     {
       "url": "#",
-      "icon": "fa-brands fa-global fa-2xl",
+      "icon": "fa-solid fa-globe fa-2xl",
+      "name": "作品集"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-github fa-2xl",
+      "name": "Github"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-x-twitter fa-2xl",
+      "name": "X"
+    },
+    {
+      "url": "#",
+      "icon": "fa-solid fa-globe fa-2xl",
+      "name": "作品集"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-github fa-2xl",
+      "name": "Github"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-x-twitter fa-2xl",
+      "name": "X"
+    },
+    {
+      "url": "#",
+      "icon": "fa-solid fa-globe fa-2xl",
+      "name": "作品集"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-github fa-2xl",
+      "name": "Github"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-x-twitter fa-2xl",
+      "name": "X"
+    },
+    {
+      "url": "#",
+      "icon": "fa-solid fa-globe fa-2xl",
+      "name": "作品集"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-github fa-2xl",
+      "name": "Github"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-x-twitter fa-2xl",
+      "name": "X"
+    },
+    {
+      "url": "#",
+      "icon": "fa-solid fa-globe fa-2xl",
+      "name": "作品集"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-github fa-2xl",
+      "name": "Github"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-x-twitter fa-2xl",
+      "name": "X"
+    },
+    {
+      "url": "#",
+      "icon": "fa-solid fa-globe fa-2xl",
+      "name": "作品集"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-github fa-2xl",
+      "name": "Github"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-x-twitter fa-2xl",
+      "name": "X"
+    },
+    {
+      "url": "#",
+      "icon": "fa-solid fa-globe fa-2xl",
+      "name": "作品集"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-github fa-2xl",
+      "name": "Github"
+    },
+    {
+      "url": "https://github.com/takashi145",
+      "icon": "fa-brands fa-x-twitter fa-2xl",
+      "name": "X"
+    },
+    {
+      "url": "#",
+      "icon": "fa-solid fa-globe fa-2xl",
       "name": "作品集"
     }
   ]

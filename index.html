@@ -15,88 +15,93 @@
   <link rel="stylesheet" href="/css/smartphone.css">
   <link rel="stylesheet" href="/css/profile.css">
   <link rel="stylesheet" href="/css/links.css">
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
-  <div class="sumaho">
-    <!-- スマホのトップバー (カメラなどがあるところ) -->
-    <div class="top-bar"></div>
+  <div id="app">
+    <div class="sumaho">
+      <!-- スマホのトップバー (カメラなどがあるところ) -->
+      <div class="top-bar"></div>
 
-    <!-- スマホのスクリーン -->
-    <div class="screen-content">
-      <!-- 各セクションを格納 -->
-      <div class="section-container">
-        <!-- プロフィール -->
-        <section id="profile" class="sections">
-          <img src="https://avatars.githubusercontent.com/u/84027833?v=4" alt="takashi145" class="profile-icon">
-          <div class="profile-details">
-            <h2>takashi145</h2>
-            <p>学生です！</p>
-          </div>
+      <!-- スマホのスクリーン -->
+      <div class="screen-content">
+        <!-- 各セクションを格納 -->
+        <div class="section-container">
+          <!-- プロフィール -->
+          <section id="profile" class="sections">
+            <img src="https://avatars.githubusercontent.com/u/84027833?v=4" alt="takashi145" class="profile-icon">
+            <div class="profile-details">
+              <h2>takashi145</h2>
+              <p>学生です！</p>
+            </div>
 
-          <!-- タイムライン -->
-          <ol class="profile-timeline">
-            <li class="timeline-item">
-              <div class="timeline-point"></div>
-              高校卒業
-            </li>
-            <li class="timeline-item">
-              <div class="timeline-point"></div>
-              大学入学
-            </li>
-            <li class="timeline-item">
-              <div class="timeline-point"></div>
-              就活
-            </li>
-            <li class="timeline-item">
-              <div class="timeline-point"></div>
-              就活
-            </li>
-            <li class="timeline-item">
-              <div class="timeline-point"></div>
-              就活
-            </li>
-          </ol>
-        </section>
+            <!-- タイムライン -->
+            <ol class="profile-timeline">
+              <li v-for="item in timeline" :key="item.event" class="timeline-item">
+                <div class="timeline-point"></div>
+                {{ item.event }}
+              </li>
+            </ol>
+          </section>
 
-        <!-- サイトリンク -->
-        <section id="links" class="sections">
-          <div class="link-item">
-            <a href="https://github.com/takashi145">
+          <!-- サイトリンク -->
+          <section v-for="linkSection in linkSections" :key="linkSection.id" class="sections links">
+            <div v-for="(link, index) in linkSection.items" :key="index" class="link-item">
+              <a :href="link.url">
                 <div class="link-icon">
-                  <i class="fa-brands fa-github fa-2xl"></i>
+                  <i :class="link.icon"></i>
                 </div>
-                <h2 class="link-name">Github</h2>
-            </a>
-          </div>
-          <div class="link-item">
-            <a href="#">
-                <div class="link-icon">
-                  <i class="fa-brands fa-x-twitter fa-2xl"></i>
-                </div>
-                <h2 class="link-name">X</h2>
-            </a>
-          </div>
-          <div class="link-item">
-            <a href="https://takashi145-s-portfolio.vercel.app/">
-                <div class="link-icon">
-                  <i class="fa-solid fa-globe fa-2xl"></i>
-                </div>
-                <h2 class="link-name">作品集</h2>
-            </a>
-          </div>
-        </section>
+                <h2 class="link-name">{{ link.name }}</h2>
+              </a>
+            </div>
+          </section>
+        </div>
+        
+        <!-- ボトムナビゲーション -->
+        <nav class="bottom-navbar">
+          <a href="#profile">
+            <i class="fa-regular fa-user"></i>
+          </a>
+          <a href="#links">
+            <i class="fa-solid fa-link"></i>
+          </a>
+        </nav>
       </div>
-      
-      <!-- ボトムナビゲーション -->
-      <nav class="bottom-navbar">
-        <a href="#profile">
-          <i class="fa-regular fa-user"></i>
-        </a>
-        <a href="#links">
-          <i class="fa-solid fa-link"></i>
-        </a>
-      </nav>
     </div>
   </div>
+  
+  <script setup>
+    const { createApp, ref, onMounted } = Vue;
+
+    createApp({
+      setup() {
+        const timeline = ref([]);
+        const linkSections = ref([]);
+
+        onMounted(async () => {
+          const response = await fetch('./data.json');
+          const data = await response.json();
+
+          timeline.value = data.timeline;
+
+          data.links.forEach((link, index) => {
+            const i = Math.floor(index / 15);
+            
+            if (!linkSections.value[i]) {
+              linkSections.value[i] = { id: i, items: [] };
+            }
+
+            linkSections.value[i].items.push(link);
+          });
+        });
+
+        return {
+          timeline,
+          linkSections,
+        }
+      }
+    }).mount('#app');
+  </script>
 </body>
 </html>
