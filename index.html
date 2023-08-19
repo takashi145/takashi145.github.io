@@ -118,7 +118,7 @@
   </div>
   
   <script>
-    const { createApp, ref, onMounted } = Vue;
+    const { createApp, ref, onMounted, onBeforeMount } = Vue;
 
     createApp({
       setup() {
@@ -129,6 +129,13 @@
         const batteryPercentage = ref(null); // バッテリーの残量パーセント
         const isCharging = ref(false); // 充電状態
         const passcode = ref('');
+
+        onBeforeMount(() => {
+          // セッションから認証状態を取得
+          if (sessionStorage.getItem('isAuth')) {
+            showLockSection.value = false;
+          }
+        })
         
         onMounted(async () => {
           // jsonファイルを読み込む
@@ -201,6 +208,9 @@
             // パスコードが1234と一致したら認証成功（1234の部分は自由に変更）
             if (passcode.value === '1234') {
               showLockSection.value = false;
+              
+              // セッションに状態を保存
+              sessionStorage.setItem('isAuth', true);
             } else {
               alert('失敗');
             }
@@ -208,6 +218,7 @@
           }
         }
 
+        // 現在時刻を一度取得
         clock();
 
         return {
