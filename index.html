@@ -6,8 +6,10 @@
 
   <title>Takashi145-Github-Pages</title>
 
+  <!-- fontawesome -->
   <script src="https://kit.fontawesome.com/e42ad1ba6a.js" crossorigin="anonymous"></script>
 
+  <!-- favicon -->
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 
   <!-- スタイルシート -->
@@ -16,6 +18,7 @@
   <link rel="stylesheet" href="/css/profile.css">
   <link rel="stylesheet" href="/css/links.css">
 
+  <!-- vue -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
@@ -35,7 +38,6 @@
               <h2>takashi145</h2>
               <p>学生です！</p>
             </div>
-
             <!-- タイムライン -->
             <ol class="profile-timeline">
               <li v-for="item in timeline" :key="item.event" class="timeline-item">
@@ -57,21 +59,11 @@
             </div>
           </section>
         </div>
-        
-        <!-- ボトムナビゲーション -->
-        <nav class="bottom-navbar">
-          <a href="#profile">
-            <i class="fa-regular fa-user"></i>
-          </a>
-          <a href="#links">
-            <i class="fa-solid fa-link"></i>
-          </a>
-        </nav>
       </div>
     </div>
   </div>
   
-  <script setup>
+  <script>
     const { createApp, ref, onMounted } = Vue;
 
     createApp({
@@ -92,13 +84,24 @@
               linkSections.value[i] = { id: i, items: [] };
             }
 
-            linkSections.value[i].items.push(link);
+            linkSections.value[i].items.push({
+              'url': link.url,
+              'icon': link.icon,
+              'name': lengthLimitText(link.name, 6),
+            });
           });
         });
 
+        const lengthLimitText = (text, maxLen = 6) => {
+          if (text.length > maxLen) {
+            return text.substring(0, maxLen) + "...";
+          }
+          return text;
+        }
+
         return {
           timeline,
-          linkSections,
+          linkSections
         }
       }
     }).mount('#app');
