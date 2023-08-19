@@ -20,6 +20,14 @@
   z-index: 100;
 }
 
+.now-time {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: small;
+  padding: 3px 10px;
+}
+
 .screen-content {
   width: 300px;
   max-height: 520px;
@@ -53,7 +61,7 @@
 .sections {
   width: 300px;
   flex: 0 0 auto;
-  padding: 36px 12px;
+  padding: 50px 12px;
   box-sizing: border-box;
   scroll-snap-align: start;
 }
@@ -62,5 +70,9 @@
   .sumaho {
     background-color: #10100f;
     border: solid 1px rgb(228, 231, 228);
+  }
+
+  .now-time {
+    color: white;
   }
 }

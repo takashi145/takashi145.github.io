@@ -29,7 +29,9 @@
 
       <!-- スマホのスクリーン -->
       <div class="screen-content">
-        <!-- 各セクションを格納 -->
+        <!-- 日付 -->
+        <div class="now-time">{{ nowTime }}</div>
+        
         <div class="section-container">
           <!-- プロフィール -->
           <section id="profile" class="sections">
@@ -71,6 +73,8 @@
         const timeline = ref([]);
         const linkSections = ref([]);
 
+        const nowTime = ref('');
+        
         onMounted(async () => {
           const response = await fetch('./data.json');
           const data = await response.json();
@@ -90,6 +94,10 @@
               'name': lengthLimitText(link.name, 6),
             });
           });
+
+          setInterval(() => {
+            clock();
+          }, 1000);
         });
 
         const lengthLimitText = (text, maxLen = 6) => {
@@ -99,9 +107,19 @@
           return text;
         }
 
+        const clock = () => {
+          let date = new Date();
+          let hour = date.getHours();
+          let minute = date.getMinutes();
+          nowTime.value = hour.toString().padStart(2, "0") + ':' + minute.toString().padStart(2, "0");
+        }
+
+        clock();
+
         return {
+          nowTime,
           timeline,
-          linkSections
+          linkSections,
         }
       }
     }).mount('#app');
