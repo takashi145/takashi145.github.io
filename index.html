@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="/css/smartphone.css">
   <link rel="stylesheet" href="/css/lock.css">
   <link rel="stylesheet" href="/css/profile.css">
+  <link rel="stylesheet" href="/css/setting.css">
   <link rel="stylesheet" href="/css/links.css">
 
   <!-- vue.js -->
@@ -35,7 +36,7 @@
           <div class="now-time">{{ nowTime }}</div>
 
           <!-- バッテリー情報 -->
-          <div class="battery" style="color: white; margin-right: 8px; display: flex; align-items: center;">
+          <div class="battery">
             <!-- バッテリー残量に応じてアイコン表示 -->
             <i v-if="batteryPercentage >= 80" class="fa fa-battery-full"></i>
             <i v-else-if="batteryPercentage >= 60" class="fa fa-battery-three-quarters"></i>
@@ -52,7 +53,7 @@
         <transition name="fade">
           <div 
             v-if="showLockSection" 
-            class="sections lock"
+            class="lock"
           >
             <!-- ロックアイコン -->
             <i class="fa-solid fa-lock fa-lg" style="color: white"></i>
@@ -87,8 +88,7 @@
         <transition name="fade">
           <div 
             v-if="showProfileSection"
-            id="profile" 
-            class="sections"
+            id="profile"
           >
             <button class="close" @click="showProfileSection = false">
               <i class="fa-solid fa-close fa-xl"></i>
@@ -99,61 +99,82 @@
               <h2>takashi145</h2>
               <p>学生です！</p>
             </div>
-            <!-- タイムライン -->
-            <ol class="profile-timeline">
-              <li class="timeline-item">
-                <div class="timeline-point"></div>
-                高校卒業
-              </li>
-              <li class="timeline-item">
-                <div class="timeline-point"></div>
-                大学入学
-              </li>
-            </ol>
+          </div>
+        </transition>
+
+        <!-- 設定 -->
+        <transition name="fade">
+          <div 
+            v-if="showSettingSection"
+            id="setting"
+          >
+            <button class="close" @click="showSettingSection = false">
+              <i class="fa-solid fa-close fa-xl"></i>
+            </button>
+            Setting
           </div>
         </transition>
         
-        <!-- サイトのリンク一覧画面（1画面に最大15個のリンク） -->
-        <div class="sections links">
-          <div class="link-item">
-            <a 
-              href="#"
-              @click="showProfileSection = true"
-            >
-              <div class="link-icon">
-                <img src="https://avatars.githubusercontent.com/u/84027833?v=4" alt="profile">
-              </div>
-              <h2 class="link-name">プロフィール</h2>
-            </a>
+        <!-- 画面 -->
+        <div class="page-container">
+          <!-- サイトのリンク一覧画面 -->
+          <div v-for="n in 3" :key="n" class="pages links">
+            <div class="link-item">
+              <a 
+                href="#"
+                @click="showProfileSection = true"
+              >
+                <div class="link-icon">
+                  <i class="fa-solid fa-user fa-2xl"></i>
+                  <!-- <img src="https://avatars.githubusercontent.com/u/84027833?v=4" alt="profile"> -->
+                </div>
+                <h2 class="link-name">プロフィール</h2>
+              </a>
+            </div>
+
+            <div class="link-item">
+              <a 
+                href="https://github.com/takashi145"
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <div class="link-icon">
+                  <i class="fa-brands fa-github fa-2xl"></i>
+                </div>
+                <h2 class="link-name">Github</h2>
+              </a>
+            </div>
+
+            <div class="link-item">
+              <a 
+                href="https://takashi145-s-portfolio.vercel.app"
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <div class="link-icon">
+                  <i class="fa-solid fa-globe fa-2xl"></i>
+                </div>
+                <h2 class="link-name">作品</h2>
+              </a>
+            </div>
+
+            <div class="link-item">
+              <a 
+                href="#setting"
+                @click="showSettingSection = true"
+              >
+                <div class="link-icon">
+                  <i class="fa-solid fa-gear fa-2xl"></i>
+                </div>
+                <h2 class="link-name">設定</h2>
+              </a>
+            </div>
           </div>
 
-          <div class="link-item">
-            <a 
-              href="https://github.com/takashi145"
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <div class="link-icon">
-                <i class="fa-brands fa-github fa-2xl"></i>
-              </div>
-              <h2 class="link-name">Github</h2>
-            </a>
-          </div>
-
-          <div class="link-item">
-            <a 
-              href="https://takashi145-s-portfolio.vercel.app"
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              <div class="link-icon">
-                <i class="fa-solid fa-globe fa-2xl"></i>
-              </div>
-              <h2 class="link-name">作品</h2>
-            </a>
+          <div class="pages">
+            comming soon
           </div>
         </div>
-      </div>
       </div>
     </div>
   </div>
@@ -165,6 +186,7 @@
       setup() {
         const showLockSection = ref(true); // ロック画面の表示状態
         const showProfileSection = ref(false); // プロフィール画面の表示状態
+        const showSettingSection = ref(false); // 設定画面の表示状態
         const nowTime = ref('');
         const batteryPercentage = ref(null); // バッテリーの残量パーセント
         const isCharging = ref(false); // 充電状態
@@ -235,6 +257,7 @@
           nowTime,
           showLockSection,
           showProfileSection,
+          showSettingSection,
           batteryPercentage,
           isCharging,
           passcode,

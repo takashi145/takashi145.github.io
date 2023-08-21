@@ -11,6 +11,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 #profile::-webkit-scrollbar { 
@@ -18,9 +19,9 @@
 }
 
 #profile .close {
-  position: absolute;
+  position: fixed;
   top: 40px;
-  right: 20px;
+  right: 12px;
   cursor: pointer;
   color: gray;
 }
@@ -29,12 +30,13 @@
   scale: 1.1;
 }
 
-.profile-icon{
+.profile-icon {
   height: 200px;
   border-radius: 100%;
   border: solid 3px rgb(226, 228, 225);
   transition: transform 3s;
   transform-style: preserve-3d;
+  /* margin-top: 40px; */
 }
 
 .profile-icon:hover {

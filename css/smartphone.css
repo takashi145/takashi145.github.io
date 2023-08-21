@@ -34,8 +34,10 @@
   padding-left: 8px;
 }
 
-.color-mode {
-  padding-right: 8px;
+.battery {
+  margin-right: 8px; 
+  display: flex; 
+  align-items: center;
 }
 
 .screen-content {
@@ -52,7 +54,7 @@
   display: none;
 }
 
-.section-container {
+.page-container {
   display: flex;
   white-space: nowrap;
   overflow-x: auto;
@@ -60,15 +62,15 @@
   z-index: 100;
 }
 
-.section-container::-webkit-scrollbar { 
+.page-container::-webkit-scrollbar { 
   display: none;
 }
 
-.screen-content .section-container {
+.screen-content .page-container {
   scroll-snap-type: x mandatory;
 }
 
-.sections {
+.pages {
   width: 300px;
   height: 520px;
   flex: 0 0 auto;
@@ -85,5 +87,13 @@
 
   .now-time {
     color: white;
+  }
+
+  .battery {
+    color: white;
+  }
+
+  .pages {
+    background-color: rgba(0, 0, 0, 0.897);
   }
 }
