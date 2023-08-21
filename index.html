@@ -32,7 +32,7 @@
       <div class="screen-content">
         <div class="screen-top">
           <!-- 現在時刻 -->
-          <div class="now-time">{{ nowTime }}</div>
+          <div class="current-time">{{ currentTime }}</div>
 
           <!-- バッテリー情報 -->
           <div class="battery">
@@ -49,15 +49,13 @@
         </div>
 
         <!-- ロック画面 -->
-        <transition name="fade">
+        <!-- <transition name="fade">
           <div 
             v-if="showLockSection" 
             class="lock"
           >
-            <!-- ロックアイコン -->
             <i class="fa-solid fa-lock fa-lg" style="color: white"></i>
 
-            <!-- パスコードの入力状態表示 -->
             <div class="passcode">
               <p>4桁のパスコードを入力してください。</p>
               <div>
@@ -65,7 +63,6 @@
               </div>
             </div>
 
-            <!-- キーパッド -->
             <div class="keypad">
               <button
                v-for="n in 9"
@@ -78,10 +75,9 @@
               <button @click="addPasscodeNum(0)">0</button>
             </div>
 
-            <!-- パスコードのクリアボタン -->
             <button @click="passcode = ''" class="clear">クリア</button>
           </div>
-        </transition>
+        </transition> -->
 
         <!-- プロフィール画面 -->
         <transition name="fade">
@@ -104,17 +100,30 @@
         <!-- 画面 -->
         <div class="page-container">
           <!-- サイトのリンク一覧画面 -->
-          <div v-for="n in 3" :key="n" class="pages links">
+          <div class="pages links">
             <div class="link-item">
               <a 
                 href="#"
                 @click="showProfileSection = true"
               >
                 <div class="link-icon">
-                  <i class="fa-solid fa-user fa-2xl"></i>
-                  <!-- <img src="https://avatars.githubusercontent.com/u/84027833?v=4" alt="profile"> -->
+                  <!-- <i class="fa-solid fa-user fa-2xl"></i> -->
+                  <img src="https://avatars.githubusercontent.com/u/84027833?v=4" alt="profile">
                 </div>
                 <h2 class="link-name">プロフィール</h2>
+              </a>
+            </div>
+
+            <div class="link-item">
+              <a 
+                href="https://twitter.com/ha_aa61003"
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <div class="link-icon">
+                  <i class="fa-brands fa-x-twitter fa-2xl"></i>
+                </div>
+                <h2 class="link-name">X</h2>
               </a>
             </div>
 
@@ -143,10 +152,19 @@
                 <h2 class="link-name">作品</h2>
               </a>
             </div>
-          </div>
 
-          <div class="pages">
-            comming soon
+            <div class="link-item">
+              <a 
+                href="https://takashi145.github.io/test"
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <div class="link-icon">
+                  <img src="/images/vue.PNG" />
+                </div>
+                <h2 class="link-name">test</h2>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -158,19 +176,19 @@
 
     createApp({
       setup() {
-        const showLockSection = ref(true); // ロック画面の表示状態
+        // const showLockSection = ref(true); // ロック画面の表示状態
         const showProfileSection = ref(false); // プロフィール画面の表示状態
-        const nowTime = ref('');
+        const currentTime = ref(''); // 現在時刻
         const batteryPercentage = ref(null); // バッテリーの残量パーセント
         const isCharging = ref(false); // 充電状態
         const passcode = ref('');
 
-        onBeforeMount(() => {
-          // セッションから認証状態を取得
-          if (sessionStorage.getItem('isAuth')) {
-            showLockSection.value = false;
-          }
-        })
+        // onBeforeMount(() => {
+        //   // セッションから認証状態を取得
+        //   if (sessionStorage.getItem('isAuth')) {
+        //     showLockSection.value = false;
+        //   }
+        // })
         
         onMounted(async () => {
           // バッテリー状態を取得
@@ -192,48 +210,48 @@
 
           // 現在時刻の更新
           setInterval(() => {
-            clock();
+            getCurrentTime();
           }, 1000);
         });
 
         // 現在時刻を取得する
-        const clock = () => {
+        const getCurrentTime = () => {
           let date = new Date();
           let hour = date.getHours();
           let minute = date.getMinutes();
-          nowTime.value = hour.toString().padStart(2, "0") + ':' + minute.toString().padStart(2, "0");
+          currentTime.value = hour.toString().padStart(2, "0") + ':' + minute.toString().padStart(2, "0");
         }
 
-        // パスコードに数字を追加する
-        const addPasscodeNum = num => {
-          passcode.value += num.toString();
+        // // パスコードに数字を追加する
+        // const addPasscodeNum = num => {
+        //   passcode.value += num.toString();
           
-          // パスコードが4桁になったら認証
-          if(passcode.value.length === 4) {
-            // パスコードが1234と一致したら認証成功（1234の部分は自由に変更）
-            if (passcode.value === '1234') {
-              showLockSection.value = false;
+        //   // パスコードが4桁になったら認証
+        //   if(passcode.value.length === 4) {
+        //     // パスコードが1234と一致したら認証成功（1234の部分は自由に変更）
+        //     if (passcode.value === '1234') {
+        //       showLockSection.value = false;
               
-              // セッションに状態を保存
-              sessionStorage.setItem('isAuth', true);
-            } else {
-              alert('失敗');
-            }
-            passcode.value = '';
-          }
-        }
+        //       // セッションに状態を保存
+        //       sessionStorage.setItem('isAuth', true);
+        //     } else {
+        //       alert('失敗');
+        //     }
+        //     passcode.value = '';
+        //   }
+        // }
 
         // 現在時刻を一度取得
-        clock();
+        getCurrentTime();
 
         return {
-          nowTime,
-          showLockSection,
+          currentTime,
+          // showLockSection,
           showProfileSection,
           batteryPercentage,
           isCharging,
           passcode,
-          addPasscodeNum,
+          // addPasscodeNum,
         }
       }
     }).mount('#app');
