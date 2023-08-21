@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="/css/smartphone.css">
   <link rel="stylesheet" href="/css/lock.css">
   <link rel="stylesheet" href="/css/profile.css">
-  <link rel="stylesheet" href="/css/setting.css">
   <link rel="stylesheet" href="/css/links.css">
 
   <!-- vue.js -->
@@ -101,19 +100,6 @@
             </div>
           </div>
         </transition>
-
-        <!-- 設定 -->
-        <transition name="fade">
-          <div 
-            v-if="showSettingSection"
-            id="setting"
-          >
-            <button class="close" @click="showSettingSection = false">
-              <i class="fa-solid fa-close fa-xl"></i>
-            </button>
-            Setting
-          </div>
-        </transition>
         
         <!-- 画面 -->
         <div class="page-container">
@@ -157,18 +143,6 @@
                 <h2 class="link-name">作品</h2>
               </a>
             </div>
-
-            <div class="link-item">
-              <a 
-                href="#setting"
-                @click="showSettingSection = true"
-              >
-                <div class="link-icon">
-                  <i class="fa-solid fa-gear fa-2xl"></i>
-                </div>
-                <h2 class="link-name">設定</h2>
-              </a>
-            </div>
           </div>
 
           <div class="pages">
@@ -186,7 +160,6 @@
       setup() {
         const showLockSection = ref(true); // ロック画面の表示状態
         const showProfileSection = ref(false); // プロフィール画面の表示状態
-        const showSettingSection = ref(false); // 設定画面の表示状態
         const nowTime = ref('');
         const batteryPercentage = ref(null); // バッテリーの残量パーセント
         const isCharging = ref(false); // 充電状態
@@ -257,7 +230,6 @@
           nowTime,
           showLockSection,
           showProfileSection,
-          showSettingSection,
           batteryPercentage,
           isCharging,
           passcode,
