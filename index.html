@@ -39,54 +39,61 @@
             <!-- バッテリー残量に応じてアイコン表示 -->
             <i v-if="batteryPercentage >= 80" class="fa fa-battery-full"></i>
             <i v-else-if="batteryPercentage >= 60" class="fa fa-battery-three-quarters"></i>
-            <i v-else-if="batteryPercentage >= 40" class="fa fa-battery-half"></i>
-            <i v-else-if="batteryPercentage >= 20" class="fa fa-battery-quarter" style="color: rgb(173, 63, 63);"></i>
+            <i v-else-if="batteryPercentage >= 30" class="fa fa-battery-half"></i>
+            <i v-else-if="batteryPercentage >= 20" class="fa fa-battery-quarter"></i>
             <i v-else class="fa fa-battery-empty"></i>
 
             <!-- 充電中の場合に表示 -->
             <i v-if="isCharging" class="fa-solid fa-bolt fa-2xs" style="margin-left: 3px;"></i>
           </div>
         </div>
-        
-        <!-- 画面セクション -->
-        <div class="section-container">
-          <!-- ロック画面 -->
-          <transition name="fade">
-            <section 
-              v-if="showLockSection" 
-              class="sections lock"
-            >
-              <!-- ロックアイコン -->
-              <i class="fa-solid fa-lock fa-lg" style="color: white"></i>
 
-              <!-- パスコードの入力状態表示 -->
-              <div class="passcode">
-                <p>4桁のパスコードを入力してください。</p>
-                <div>
-                  <span v-for="n in passcode.length" :key="n">・</span>
-                </div>
+        <!-- ロック画面 -->
+        <transition name="fade">
+          <div 
+            v-if="showLockSection" 
+            class="sections lock"
+          >
+            <!-- ロックアイコン -->
+            <i class="fa-solid fa-lock fa-lg" style="color: white"></i>
+
+            <!-- パスコードの入力状態表示 -->
+            <div class="passcode">
+              <p>4桁のパスコードを入力してください。</p>
+              <div>
+                <span v-for="n in passcode.length" :key="n">・</span>
               </div>
+            </div>
 
-              <!-- キーパッド -->
-              <div class="keypad">
-                <button
-                 v-for="n in 9"
-                 :key="n"
-                 @click="addPasscodeNum(n)"
-                >
-                  {{ n }}
-                </button>
-                <div></div>
-                <button @click="addPasscodeNum(0)">0</button>
-              </div>
+            <!-- キーパッド -->
+            <div class="keypad">
+              <button
+               v-for="n in 9"
+               :key="n"
+               @click="addPasscodeNum(n)"
+              >
+                {{ n }}
+              </button>
+              <div></div>
+              <button @click="addPasscodeNum(0)">0</button>
+            </div>
 
-              <!-- パスコードのクリアボタン -->
-              <button @click="passcode = ''" class="clear">クリア</button>
-            </section>
-          </transition>
+            <!-- パスコードのクリアボタン -->
+            <button @click="passcode = ''" class="clear">クリア</button>
+          </div>
+        </transition>
 
-          <!-- プロフィール画面 -->
-          <section id="profile" class="sections">
+        <!-- プロフィール画面 -->
+        <transition name="fade">
+          <div 
+            v-if="showProfileSection"
+            id="profile" 
+            class="sections"
+          >
+            <button class="close" @click="showProfileSection = false">
+              <i class="fa-solid fa-close fa-xl"></i>
+            </button>
+            
             <img src="https://avatars.githubusercontent.com/u/84027833?v=4" alt="takashi145" class="profile-icon">
             <div class="profile-details">
               <h2>takashi145</h2>
@@ -94,25 +101,59 @@
             </div>
             <!-- タイムライン -->
             <ol class="profile-timeline">
-              <li v-for="item in timeline" :key="item.event" class="timeline-item">
+              <li class="timeline-item">
                 <div class="timeline-point"></div>
-                {{ item.event }}
+                高校卒業
+              </li>
+              <li class="timeline-item">
+                <div class="timeline-point"></div>
+                大学入学
               </li>
             </ol>
-          </section>
-          
-          <!-- サイトのリンク一覧画面（1画面に最大15個のリンク） -->
-          <section v-for="linkSection in linkSections" :key="linkSection.id" class="sections links">
-            <div v-for="(link, index) in linkSection.items" :key="index" class="link-item">
-              <a :href="link.url" target="_blank" rel="noopener noreferrer">
-                <div class="link-icon">
-                  <i :class="link.icon"></i>
-                </div>
-                <h2 class="link-name">{{ link.name }}</h2>
-              </a>
-            </div>
-          </section>
+          </div>
+        </transition>
+        
+        <!-- サイトのリンク一覧画面（1画面に最大15個のリンク） -->
+        <div class="sections links">
+          <div class="link-item">
+            <a 
+              href="#"
+              @click="showProfileSection = true"
+            >
+              <div class="link-icon">
+                <img src="https://avatars.githubusercontent.com/u/84027833?v=4" alt="profile">
+              </div>
+              <h2 class="link-name">プロフィール</h2>
+            </a>
+          </div>
+
+          <div class="link-item">
+            <a 
+              href="https://github.com/takashi145"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <div class="link-icon">
+                <i class="fa-brands fa-github fa-2xl"></i>
+              </div>
+              <h2 class="link-name">Github</h2>
+            </a>
+          </div>
+
+          <div class="link-item">
+            <a 
+              href="https://takashi145-s-portfolio.vercel.app"
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <div class="link-icon">
+                <i class="fa-solid fa-globe fa-2xl"></i>
+              </div>
+              <h2 class="link-name">作品</h2>
+            </a>
+          </div>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -123,8 +164,7 @@
     createApp({
       setup() {
         const showLockSection = ref(true); // ロック画面の表示状態
-        const timeline = ref([]);
-        const linkSections = ref([]);
+        const showProfileSection = ref(false); // プロフィール画面の表示状態
         const nowTime = ref('');
         const batteryPercentage = ref(null); // バッテリーの残量パーセント
         const isCharging = ref(false); // 充電状態
@@ -138,28 +178,6 @@
         })
         
         onMounted(async () => {
-          // jsonファイルを読み込む
-          const response = await fetch('./data.json');
-          const data = await response.json();
-
-          // タイムラインのデータを設定
-          timeline.value = data.timeline;
-
-          // サイトのリンクデータを設定
-          data.links.forEach((link, index) => {
-            const i = Math.floor(index / 15);
-            
-            if (!linkSections.value[i]) {
-              linkSections.value[i] = { id: i, items: [] };
-            }
-
-            linkSections.value[i].items.push({
-              'url': link.url,
-              'icon': link.icon,
-              'name': lengthLimitText(link.name, 6),
-            });
-          });
-
           // バッテリー状態を取得
           if ("getBattery" in navigator) {
             const battery = await navigator.getBattery();
@@ -182,14 +200,6 @@
             clock();
           }, 1000);
         });
-
-        // 文字列を指定した長さに切り取る
-        const lengthLimitText = (text, maxLen = 6) => {
-          if (text.length > maxLen) {
-            return text.substring(0, maxLen) + "...";
-          }
-          return text;
-        }
 
         // 現在時刻を取得する
         const clock = () => {
@@ -223,9 +233,8 @@
 
         return {
           nowTime,
-          timeline,
-          linkSections,
           showLockSection,
+          showProfileSection,
           batteryPercentage,
           isCharging,
           passcode,
