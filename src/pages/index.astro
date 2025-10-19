@@ -2,6 +2,7 @@
 import '../styles/global.css';
 // Component Imports
 import Button from '../components/Button.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/basics/astro-components/
@@ -14,12 +15,31 @@ import Button from '../components/Button.astro';
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro + TailwindCSS</title>
+		<script is:inline>
+			// Prevent flash of unstyled content (FOUC)
+			const theme = (() => {
+				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+					return localStorage.getItem('theme');
+				}
+				if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+					return 'dark';
+				}
+				return 'light';
+			})();
+
+			if (theme === 'dark') {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		</script>
 	</head>
 
-	<body>
+	<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+		<ThemeToggle />
 		<div class="grid place-items-center h-screen content-center">
 			<Button>Tailwind Button in Astro!</Button>
-			<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
+			<a href="/markdown-page" class="p-4 underline hover:text-purple-500 dark:hover:text-purple-400">Markdown is also supported...</a>
 		</div>
 	</body>
 </html>
