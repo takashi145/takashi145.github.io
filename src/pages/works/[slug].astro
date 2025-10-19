@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	const works = await getCollection('works');
+	return works
+		.filter((work) => work.data.hasDetailPage)
+		.map((work) => ({
+			params: { slug: work.slug },
+			props: { work },
+		}));
+}
+
+const { work } = Astro.props;
+const { Content } = await work.render();
+---
+
+<Layout title={`${work.data.title} - Portfolio`} description={work.data.description}>
+	<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 max-w-5xl">
+			<!-- Back button -->
+			<a
+				href="/works"
+				class="inline-flex items-center gap-2 text-purple-500 dark:text-purple-400 hover:text-purple-600 dark:hover:text-purple-300 mb-8 transition-colors"
+			>
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+				</svg>
+				Back to Works
+			</a>
+
+			<!-- Header -->
+			<div class="mb-8">
+				<h1 class="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+					{work.data.title}
+				</h1>
+				<p class="text-xl text-gray-700 dark:text-gray-300 mb-6">
+					{work.data.description}
+				</p>
+
+				<!-- Tags -->
+				<div class="flex flex-wrap gap-2 mb-6">
+					{work.data.tags.map((tag) => (
+						<span class="px-3 py-1 bg-purple-500 dark:bg-purple-600 text-white text-sm rounded-full">
+							{tag}
+						</span>
+					))}
+				</div>
+
+				<!-- Links -->
+				<div class="flex gap-4 flex-wrap">
+					{work.data.github && (
+						<a
+							href={work.data.github}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="px-6 py-2 bg-gray-900 dark:bg-gray-700 text-white rounded-lg hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors"
+						>
+							GitHub
+						</a>
+					)}
+					{work.data.demo && (
+						<a
+							href={work.data.demo}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="px-6 py-2 bg-purple-500 dark:bg-purple-600 text-white rounded-lg hover:bg-purple-600 dark:hover:bg-purple-700 transition-colors"
+						>
+							Live Demo
+						</a>
+					)}
+				</div>
+			</div>
+
+			<!-- Main image -->
+			<div class="mb-12">
+				<img
+					src={work.data.image}
+					alt={work.data.title}
+					class="w-full rounded-lg shadow-lg"
+				/>
+			</div>
+
+			<!-- Content -->
+			<div class="prose dark:prose-invert max-w-none">
+				<Content />
+			</div>
+	</div>
+</Layout>
