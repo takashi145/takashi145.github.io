@@ -17,7 +17,7 @@ const { title, description, image, tags, github, demo, slug, hasDetailPage } =
 <div
   class="work-card group relative overflow-hidden rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm cursor-default"
 >
-  <div class="aspect-video overflow-hidden">
+  <div class="aspect-video overflow-hidden bg-gray-300 dark:bg-gray-700">
     <img
       src={image}
       alt={title}
@@ -26,7 +26,7 @@ const { title, description, image, tags, github, demo, slug, hasDetailPage } =
   </div>
 
   <div class="p-4 bg-white dark:bg-gray-800">
-    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
       {title}
     </h3>
     <div class="flex flex-wrap gap-2">
