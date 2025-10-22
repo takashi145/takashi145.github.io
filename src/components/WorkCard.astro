@@ -15,13 +15,13 @@ const { title, description, image, tags, github, demo, slug, hasDetailPage } =
 ---
 
 <div
-  class="work-card group relative overflow-hidden rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm cursor-default"
+  class="work-card group relative overflow-hidden rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm cursor-pointer transition-[transform,box-shadow] duration-300 ease-[ease] active:-translate-y-1 hover:-translate-y-1"
 >
   <div class="aspect-video overflow-hidden bg-gray-300 dark:bg-gray-700">
     <img
       src={image}
       alt={title}
-      class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+      class="w-full h-full object-cover transition-transform duration-300 group-active:scale-105 group-hover:scale-105"
     />
   </div>
 
@@ -40,9 +40,8 @@ const { title, description, image, tags, github, demo, slug, hasDetailPage } =
     </div>
   </div>
 
-  <!-- Hover Overlay -->
   <div
-    class="absolute inset-0 bg-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-8 text-white"
+    class="work-card-overlay absolute inset-0 bg-black/90 opacity-0 group-active:opacity-100 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-8 text-white pointer-events-none group-active:pointer-events-auto group-hover:pointer-events-auto"
   >
     <h3 class="text-2xl font-bold mb-4">{title}</h3>
     <p class="text-sm mb-6 text-center text-gray-200 max-w-md leading-relaxed">
@@ -89,6 +88,7 @@ const { title, description, image, tags, github, demo, slug, hasDetailPage } =
           <a
             href={`/works/${slug}`}
             class="px-5 py-2.5 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition-colors"
+            onclick="event.stopPropagation()"
           >
             詳細
           </a>
@@ -98,15 +98,53 @@ const { title, description, image, tags, github, demo, slug, hasDetailPage } =
   </div>
 </div>
 
-<style>
-  .work-card {
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
-  }
+<script>
+  // タッチデバイスだとホバーでのオーバーレイ表示できないため、
+  // クリックでオーバーレイを表示・非表示にする
+  document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".work-card");
 
-  .work-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+    cards.forEach((card) => {
+      const overlay = card.querySelector(".work-card-overlay");
+      if (!overlay) return; // オーバーレイがない場合はスキップ
+
+      // カードをタップ時
+      card.addEventListener("click", (e) => {
+        const isActive = card.classList.contains("active");
+
+        // 他のカードのactiveを外す
+        document.querySelectorAll(".work-card.active").forEach((otherCard) => {
+          if (otherCard !== card) {
+            otherCard.classList.remove("active");
+          }
+        });
+
+        if (!isActive) {
+          card.classList.add("active");
+        } else {
+          card.classList.remove("active");
+        }
+      });
+    });
+
+    // カード外をクリックしたら閉じる
+    document.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".work-card")) {
+        document.querySelectorAll(".work-card.active").forEach((card) => {
+          card.classList.remove("active");
+        });
+      }
+    });
+  });
+</script>
+
+<style>
+  /* タッチデバイスはactiveクラスがついてるかどうかでオーバーレイ表示 */
+  @media (hover: none) {
+    .work-card.active .work-card-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
   }
 </style>
