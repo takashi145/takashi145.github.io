@@ -4,7 +4,7 @@
 
 <button
   id="theme-toggle"
-  class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75"
+  class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75 cursor-pointer"
   aria-label="Toggle dark mode"
 >
   <svg
@@ -38,24 +38,31 @@
 </button>
 
 <script>
-  const theme = (() => {
+  const currentTheme = (() => {
+    // ローカルストレージに保存されていればそれを使う
     if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
       return localStorage.getItem("theme");
     }
+
+    // OSの設定がダークモードならダークモードを使う
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       return "dark";
     }
+
+    // デフォルトはライトモード
     return "light";
   })();
 
-  if (theme === "dark") {
+  // 初期表示時にテーマを適用
+  if (currentTheme === "dark") {
     document.documentElement.classList.add("dark");
   } else {
     document.documentElement.classList.remove("dark");
   }
 
-  if (theme) {
-    window.localStorage.setItem("theme", theme);
+  // ローカルストレージに現在のテーマを保存
+  if (currentTheme) {
+    window.localStorage.setItem("theme", currentTheme);
   }
 
   const handleToggleClick = () => {
@@ -65,7 +72,6 @@
     const isDark = element.classList.contains("dark");
     localStorage.setItem("theme", isDark ? "dark" : "light");
 
-    // Toggle icon visibility
     const sunIcon = document.querySelector(".sun-icon");
     const moonIcon = document.querySelector(".moon-icon");
     if (sunIcon && moonIcon) {
@@ -78,7 +84,6 @@
     .getElementById("theme-toggle")
     ?.addEventListener("click", handleToggleClick);
 
-  // Set initial icon state
   const isDark = document.documentElement.classList.contains("dark");
   const sunIcon = document.querySelector(".sun-icon");
   const moonIcon = document.querySelector(".moon-icon");
