@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import WorkCard from './WorkCard.astro';
+
+const works = await getCollection('works');
+const sortedWorks = works.sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="works" class="min-h-screen py-20 bg-transparent">
+  <div class="w-full">
+    <h2 class="text-4xl font-bold mb-12 text-gray-900 dark:text-white">Works</h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {sortedWorks.map((work) => (
+        <WorkCard
+          title={work.data.title}
+          description={work.data.description}
+          image={work.data.image}
+          tags={work.data.tags}
+          github={work.data.github}
+          demo={work.data.demo}
+          slug={work.slug}
+          hasDetailPage={work.data.hasDetailPage}
+        />
+      ))}
+    </div>
+
+    {sortedWorks.length === 0 && (
+      <div class="text-center py-20">
+        <p class="text-gray-500 dark:text-gray-400 text-lg">
+          作品はまだ追加されていません。
+        </p>
+      </div>
+    )}
+  </div>
+</section>
