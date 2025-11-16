@@ -5,8 +5,6 @@ interface Props {
   currentPath?: string;
 }
 
-const { currentPath = "/" } = Astro.props;
-
 const navItems = [
   { name: "Home", href: "#hero" },
   { name: "Skills", href: "#skills" },
@@ -51,57 +49,65 @@ const navItems = [
   </nav>
 </header>
 
-<!-- Spacer to prevent content from hiding under fixed header -->
 <div class="h-16"></div>
 
 <script>
-  // スムーズスクロール
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
+  // アンカーリンクのスクロール
+  const anchors = document.querySelectorAll('a[href^="#"]');
+  anchors.forEach((a) => {
+    a.addEventListener("click", (e) => {
       e.preventDefault();
-      const targetId = this.getAttribute("href");
-      if (targetId === "#") return;
 
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        const headerOffset = 80;
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition =
-          elementPosition + window.pageYOffset - headerOffset;
+      const id = a.getAttribute("href");
+      if (!id || id === "#") return; // 無効なリンクは無視
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
-      }
+      // 移動先の要素を取得
+      const el = document.querySelector(id);
+      if (!el) return;
+
+      // 固定ヘッダー分のずれを考慮
+      const offset = 80;
+      const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+
+      // スムーズスクロール
+      window.scrollTo({
+        top: top,
+        behavior: "smooth",
+      });
+
+      // urlに反映
+      history.replaceState(null, "", id);
     });
   });
 
-  // スクロール位置に応じてアクティブなナビゲーションを更新
+  // 現在位置に応じてナビの表示切り替え
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(".nav-link");
 
-  function updateActiveNav() {
-    let current = "";
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-      if (window.pageYOffset >= sectionTop - 100) {
-        current = section.getAttribute("id") || "";
+  function updateNav() {
+    let active = "";
+
+    // 一番近いセクションを特定
+    sections.forEach((sec) => {
+      if (window.pageYOffset >= sec.offsetTop - 100) {
+        active = sec.id;
       }
     });
 
+    // ナビゲーションのアクティブ表示を更新
     navLinks.forEach((link) => {
+      const target = link.getAttribute("data-section");
+
       link.classList.remove("text-purple-500", "dark:text-purple-400");
       link.classList.add("text-gray-700", "dark:text-gray-300");
 
-      if (link.getAttribute("data-section") === current) {
+      if (target === active) {
         link.classList.remove("text-gray-700", "dark:text-gray-300");
         link.classList.add("text-purple-500", "dark:text-purple-400");
       }
     });
   }
 
-  window.addEventListener("scroll", updateActiveNav);
-  updateActiveNav();
+  window.addEventListener("scroll", updateNav);
+  updateNav();
 </script>
