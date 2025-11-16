@@ -1,95 +1,107 @@
 ---
-import ThemeToggle from './ThemeToggle.astro';
+import ThemeToggle from "./ThemeToggle.astro";
 
 interface Props {
-	currentPath?: string;
+  currentPath?: string;
 }
 
-const { currentPath = '/' } = Astro.props;
+const { currentPath = "/" } = Astro.props;
 
 const navItems = [
-	{ name: 'Home', href: '#hero' },
-	{ name: 'About', href: '#about' },
-	{ name: 'Works', href: '#works' },
+  { name: "Home", href: "#hero" },
+  { name: "Skills", href: "#skills" },
+  // { name: 'Experience', href: '#experience' },
+  { name: "Certifications", href: "#certifications" },
+  { name: "Works", href: "#works" },
 ];
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
-	<nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between max-w-7xl">
-		<a href="/" class="text-xl font-bold text-gray-900 dark:text-white hover:text-purple-500 dark:hover:text-purple-400 transition-colors">
-			Portfolio
-		</a>
+<header
+  class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800"
+>
+  <nav
+    class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between max-w-7xl"
+  >
+    <a
+      href="/"
+      class="text-xl font-bold text-gray-900 dark:text-white hover:text-purple-500 dark:hover:text-purple-400 transition-colors"
+    >
+      Portfolio
+    </a>
 
-		<div class="flex items-center gap-4 sm:gap-8">
-			<ul class="flex gap-4 sm:gap-6">
-				{navItems.map((item) => (
-					<li>
-						<a
-							href={item.href}
-							class="nav-link text-sm font-medium transition-colors text-gray-700 dark:text-gray-300 hover:text-purple-500 dark:hover:text-purple-400"
-							data-section={item.href.slice(1)}
-						>
-							{item.name}
-						</a>
-					</li>
-				))}
-			</ul>
+    <div class="flex items-center gap-4 sm:gap-8">
+      <ul class="flex gap-4 sm:gap-6">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="nav-link text-sm font-medium transition-colors text-gray-700 dark:text-gray-300 hover:text-purple-500 dark:hover:text-purple-400"
+                data-section={item.href.slice(1)}
+              >
+                {item.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
 
-			<ThemeToggle />
-		</div>
-	</nav>
+      <ThemeToggle />
+    </div>
+  </nav>
 </header>
 
 <!-- Spacer to prevent content from hiding under fixed header -->
 <div class="h-16"></div>
 
 <script>
-	// スムーズスクロール
-	document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-		anchor.addEventListener('click', function (e) {
-			e.preventDefault();
-			const targetId = this.getAttribute('href');
-			if (targetId === '#') return;
+  // スムーズスクロール
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      const targetId = this.getAttribute("href");
+      if (targetId === "#") return;
 
-			const targetElement = document.querySelector(targetId);
-			if (targetElement) {
-				const headerOffset = 80;
-				const elementPosition = targetElement.getBoundingClientRect().top;
-				const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        const headerOffset = 80;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition =
+          elementPosition + window.pageYOffset - headerOffset;
 
-				window.scrollTo({
-					top: offsetPosition,
-					behavior: 'smooth'
-				});
-			}
-		});
-	});
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    });
+  });
 
-	// スクロール位置に応じてアクティブなナビゲーションを更新
-	const sections = document.querySelectorAll('section[id]');
-	const navLinks = document.querySelectorAll('.nav-link');
+  // スクロール位置に応じてアクティブなナビゲーションを更新
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-link");
 
-	function updateActiveNav() {
-		let current = '';
-		sections.forEach(section => {
-			const sectionTop = section.offsetTop;
-			const sectionHeight = section.clientHeight;
-			if (window.pageYOffset >= sectionTop - 100) {
-				current = section.getAttribute('id') || '';
-			}
-		});
+  function updateActiveNav() {
+    let current = "";
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (window.pageYOffset >= sectionTop - 100) {
+        current = section.getAttribute("id") || "";
+      }
+    });
 
-		navLinks.forEach(link => {
-			link.classList.remove('text-purple-500', 'dark:text-purple-400');
-			link.classList.add('text-gray-700', 'dark:text-gray-300');
+    navLinks.forEach((link) => {
+      link.classList.remove("text-purple-500", "dark:text-purple-400");
+      link.classList.add("text-gray-700", "dark:text-gray-300");
 
-			if (link.getAttribute('data-section') === current) {
-				link.classList.remove('text-gray-700', 'dark:text-gray-300');
-				link.classList.add('text-purple-500', 'dark:text-purple-400');
-			}
-		});
-	}
+      if (link.getAttribute("data-section") === current) {
+        link.classList.remove("text-gray-700", "dark:text-gray-300");
+        link.classList.add("text-purple-500", "dark:text-purple-400");
+      }
+    });
+  }
 
-	window.addEventListener('scroll', updateActiveNav);
-	updateActiveNav();
+  window.addEventListener("scroll", updateActiveNav);
+  updateActiveNav();
 </script>
