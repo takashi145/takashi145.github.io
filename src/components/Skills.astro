@@ -1,19 +1,19 @@
 ---
 const skillsByCategory = {
-  Frontend: [
+  プログラミング言語: [
     {
-      name: "React",
+      name: "PHP",
       experience: "約2年",
       description: "",
     },
     {
-      name: "Vue.js",
-      experience: "約1年",
+      name: "Python",
+      experience: "約2年",
       description: "",
     },
     {
-      name: "Astro",
-      experience: "約1年",
+      name: "JavaScript",
+      experience: "約2年",
       description: "",
     },
     {
@@ -21,27 +21,54 @@ const skillsByCategory = {
       experience: "約2年",
       description: "",
     },
-  ],
-  Backend: [
     {
-      name: "PHP",
+      name: "SQL",
       experience: "約2年",
       description: "",
     },
+  ],
+  フレームワーク: [
     {
       name: "Laravel",
       experience: "約2年",
       description: "",
     },
     {
+      name: "React",
+      experience: "約2年",
+      description: "",
+    },
+    {
+      name: "Vue.js",
+      experience: "約2年",
+      description: "",
+    },
+    {
+      name: "Tailwind CSS",
+      experience: "約2年",
+      description: "",
+    },
+    {
+      name: "Svelte",
+      experience: "約2年",
+      description: "",
+    },
+  ],
+  データベース: [
+    {
       name: "MySQL",
       experience: "約2年",
       description: "",
     },
   ],
-  Tools: [
+  ツール: [
     {
       name: "Git",
+      experience: "約2年",
+      description: "",
+    },
+    {
+      name: "GitHub",
       experience: "約2年",
       description: "",
     },
@@ -66,35 +93,60 @@ const certifications = [
 ---
 
 <section id="skills" class="min-h-screen py-20 bg-transparent">
-  <div class="w-full">
+  <div class="w-full max-w-6xl mx-auto px-4">
     <h2
       class="text-3xl md:text-4xl font-bold mb-16 text-center text-gray-900 dark:text-white"
     >
       Skills
     </h2>
 
-    <div class="grid md:grid-cols-2 gap-6 mb-12">
+    <div class="space-y-6 mb-12">
       {
         Object.entries(skillsByCategory).map(([category, skills]) => (
-          <div class="mb-12 last:mb-0">
-            <h3 class="text-2xl font-semibold mb-6 text-purple-500 dark:text-purple-400">
+          <div class="bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
+            <h3 class="text-xl font-bold mb-4 text-purple-600 dark:text-purple-400 flex items-center gap-2">
+              <span class="w-1 h-6 bg-purple-600 dark:bg-purple-400 rounded-full" />
               {category}
             </h3>
-            <div class="space-y-3">
-              {skills.map((skill) => (
-                <div class="bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-purple-500 dark:hover:border-purple-400 transition-colors duration-200 flex flex-col h-full">
-                  <div class="flex items-center justify-between mb-2">
-                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {skills.map((skill, index) => (
+                <div
+                  class={`skill-card group bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-lg p-3 hover:border-purple-500 dark:hover:border-purple-400 hover:shadow-md transition-all duration-200 relative ${skill.description ? "cursor-pointer" : ""}`}
+                  data-skill-id={`${category}-${index}`}
+                  data-has-description={skill.description ? "true" : "false"}
+                >
+                  <div class="flex items-start justify-between gap-2">
+                    <h4 class="text-base font-semibold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors flex items-center gap-1">
                       {skill.name}
+                      {skill.description && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-4 h-4 text-purple-600 dark:text-purple-400 ml-1"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+                          />
+                        </svg>
+                      )}
                     </h4>
-                    <span class="inline-block px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-sm font-medium rounded-full whitespace-nowrap ml-2">
+                    <span class="inline-block px-2 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-xs font-medium rounded-full whitespace-nowrap flex-shrink-0">
                       {skill.experience}
                     </span>
                   </div>
+
                   {skill.description && (
-                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      {skill.description}
-                    </p>
+                    <div class="description-popup absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 border-2 border-purple-500 dark:border-purple-400 rounded-lg p-4 shadow-xl opacity-0 invisible transition-all duration-200 z-50">
+                      <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        {skill.description}
+                      </p>
+                      <div class="absolute -top-2 left-4 w-4 h-4 bg-white dark:bg-gray-800 border-t-2 border-l-2 border-purple-500 dark:border-purple-400 transform rotate-45" />
+                    </div>
                   )}
                 </div>
               ))}
@@ -104,23 +156,41 @@ const certifications = [
       }
     </div>
 
-    <div class="mt-16">
+    <div>
       <h3
         class="text-2xl font-bold mb-8 text-center text-gray-900 dark:text-white"
       >
         Certifications
       </h3>
-      <div class="grid md:grid-cols-2 gap-4">
+      <div class="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
         {
           certifications.map((cert) => (
-            <div class="bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-purple-500 dark:hover:border-purple-400 transition-colors duration-200">
-              <div class="flex items-center justify-between">
-                <h4 class="text-lg font-semibold text-gray-900 dark:text-white">
-                  {cert.name}
-                </h4>
-                <span class="text-sm text-purple-500 dark:text-purple-400 font-medium whitespace-nowrap ml-2">
-                  {cert.date}取得
-                </span>
+            <div class="group bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-lg p-5 hover:border-purple-400 dark:hover:border-purple-600 shadow-lg transition-all duration-300">
+              <div class="flex items-start gap-3">
+                <div class="flex-shrink-0 w-10 h-10 bg-purple-100 dark:bg-purple-900/40 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6 text-purple-600 dark:text-purple-400"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h4 class="text-base font-semibold text-gray-900 dark:text-white mb-1">
+                    {cert.name}
+                  </h4>
+                  <span class="text-sm text-purple-600 dark:text-purple-400 font-medium">
+                    {cert.date}取得
+                  </span>
+                </div>
               </div>
             </div>
           ))
@@ -129,3 +199,70 @@ const certifications = [
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const skillCards = document.querySelectorAll(".skill-card");
+
+    skillCards.forEach((card) => {
+      // 説明があるかどうかを確認
+      const hasDescription =
+        card.getAttribute("data-has-description") === "true";
+      if (!hasDescription) return;
+
+      // スキルカードをクリックしたときの処理
+      card.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        const descriptionPopup = card.querySelector(
+          ".description-popup"
+        ) as HTMLElement;
+        const isExpanded = card.classList.contains("expanded");
+
+        // 他のカードを閉じる
+        skillCards.forEach((otherCard) => {
+          if (otherCard !== card && otherCard.classList.contains("expanded")) {
+            otherCard.classList.remove("expanded");
+            const otherPopup = otherCard.querySelector(
+              ".description-popup"
+            ) as HTMLElement;
+            if (otherPopup) {
+              otherPopup.classList.remove("opacity-100", "visible");
+              otherPopup.classList.add("opacity-0", "invisible");
+            }
+          }
+        });
+
+        if (isExpanded) {
+          // 閉じる
+          card.classList.remove("expanded");
+          if (descriptionPopup) {
+            descriptionPopup.classList.remove("opacity-100", "visible");
+            descriptionPopup.classList.add("opacity-0", "invisible");
+          }
+        } else {
+          // 開く
+          card.classList.add("expanded");
+          if (descriptionPopup) {
+            descriptionPopup.classList.remove("opacity-0", "invisible");
+            descriptionPopup.classList.add("opacity-100", "visible");
+          }
+        }
+      });
+    });
+
+    // 外側をクリックしたら閉じる
+    document.addEventListener("click", () => {
+      skillCards.forEach((card) => {
+        if (card.classList.contains("expanded")) {
+          card.classList.remove("expanded");
+          const popup = card.querySelector(".description-popup") as HTMLElement;
+          if (popup) {
+            popup.classList.remove("opacity-100", "visible");
+            popup.classList.add("opacity-0", "invisible");
+          }
+        }
+      });
+    });
+  });
+</script>
