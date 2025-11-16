@@ -52,6 +52,17 @@ const skillsByCategory = {
     },
   ],
 };
+
+const certifications = [
+  {
+    name: "基本情報技術者試験",
+    date: "2021年",
+  },
+  {
+    name: "ITパスポート試験",
+    date: "2018年",
+  },
+];
 ---
 
 <section id="skills" class="min-h-screen py-20 bg-transparent">
@@ -62,7 +73,7 @@ const skillsByCategory = {
       Skills
     </h2>
 
-    <div class="grid md:grid-cols-2 gap-6">
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
       {
         Object.entries(skillsByCategory).map(([category, skills]) => (
           <div class="mb-12 last:mb-0">
@@ -91,6 +102,30 @@ const skillsByCategory = {
           </div>
         ))
       }
+    </div>
+
+    <div class="mt-16">
+      <h3
+        class="text-2xl font-bold mb-8 text-center text-gray-900 dark:text-white"
+      >
+        Certifications
+      </h3>
+      <div class="grid md:grid-cols-2 gap-4">
+        {
+          certifications.map((cert) => (
+            <div class="bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-purple-500 dark:hover:border-purple-400 transition-colors duration-200">
+              <div class="flex items-center justify-between">
+                <h4 class="text-lg font-semibold text-gray-900 dark:text-white">
+                  {cert.name}
+                </h4>
+                <span class="text-sm text-purple-500 dark:text-purple-400 font-medium whitespace-nowrap ml-2">
+                  {cert.date}取得
+                </span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
