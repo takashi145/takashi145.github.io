@@ -1,18 +1,57 @@
 ---
-const skillCategories = [
-  {
-    category: "Frontend",
-    skills: ["HTML", "CSS", "React", "TypeScript"],
-  },
-  {
-    category: "Backend",
-    skills: ["PHP", "Laravel", "MySQL"],
-  },
-  {
-    category: "Tools",
-    skills: ["Git", "Docker", "VS Code"],
-  },
-];
+const skillsByCategory = {
+  Frontend: [
+    {
+      name: "React",
+      experience: "約2年",
+      description: "",
+    },
+    {
+      name: "Vue.js",
+      experience: "約1年",
+      description: "",
+    },
+    {
+      name: "Astro",
+      experience: "約1年",
+      description: "",
+    },
+    {
+      name: "TypeScript",
+      experience: "約2年",
+      description: "",
+    },
+  ],
+  Backend: [
+    {
+      name: "PHP",
+      experience: "約2年",
+      description: "",
+    },
+    {
+      name: "Laravel",
+      experience: "約2年",
+      description: "",
+    },
+    {
+      name: "MySQL",
+      experience: "約2年",
+      description: "",
+    },
+  ],
+  Tools: [
+    {
+      name: "Git",
+      experience: "約2年",
+      description: "",
+    },
+    {
+      name: "Docker",
+      experience: "約2年",
+      description: "",
+    },
+  ],
+};
 ---
 
 <section id="skills" class="min-h-screen py-20 bg-transparent">
@@ -20,18 +59,31 @@ const skillCategories = [
     <h2 class="text-4xl font-bold mb-12 text-gray-900 dark:text-white">
       Skills
     </h2>
-    <div class="grid md:grid-cols-3 gap-6">
+
+    <div class="grid md:grid-cols-2 gap-6">
       {
-        skillCategories.map((category) => (
-          <div class="bg-white dark:bg-transparent border-2 border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:border-purple-500 dark:hover:border-purple-400 transition-colors duration-200 shadow-sm">
-            <h3 class="text-xl font-semibold mb-4 text-purple-500 dark:text-purple-400">
-              {category.category}
+        Object.entries(skillsByCategory).map(([category, skills]) => (
+          <div class="mb-12 last:mb-0">
+            <h3 class="text-2xl font-semibold mb-6 text-purple-500 dark:text-purple-400">
+              {category}
             </h3>
-            <div class="flex flex-wrap gap-2">
-              {category.skills.map((skill) => (
-                <span class="px-3 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 text-sm rounded-md hover:bg-purple-100 dark:hover:bg-purple-900/30 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200">
-                  {skill}
-                </span>
+            <div class="space-y-3">
+              {skills.map((skill) => (
+                <div class="bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-purple-500 dark:hover:border-purple-400 transition-colors duration-200 flex flex-col h-full">
+                  <div class="flex items-center justify-between mb-2">
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">
+                      {skill.name}
+                    </h4>
+                    <span class="inline-block px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-sm font-medium rounded-full whitespace-nowrap ml-2">
+                      {skill.experience}
+                    </span>
+                  </div>
+                  {skill.description && (
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                      {skill.description}
+                    </p>
+                  )}
+                </div>
               ))}
             </div>
           </div>
