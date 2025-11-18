@@ -14,7 +14,7 @@ const sortedWorks = works.sort((a, b) => a.data.order - b.data.order);
       Works
     </h2>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-2 gap-8">
       {
         sortedWorks.map((work) => (
           <WorkCard
