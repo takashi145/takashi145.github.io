@@ -100,56 +100,72 @@ const certifications = [
       Skills
     </h2>
 
-    <div class="space-y-6 mb-12">
-      {
-        Object.entries(skillsByCategory).map(([category, skills]) => (
-          <div class="bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300">
-            <h3 class="text-xl font-bold mb-4 text-purple-600 dark:text-purple-400 flex items-center gap-2">
-              <span class="w-1 h-6 bg-purple-600 dark:bg-purple-400 rounded-full" />
+    <div class="mb-8">
+      <div class="flex flex-wrap gap-2 justify-center">
+        {
+          Object.keys(skillsByCategory).map((category, index) => (
+            <button
+              class={`tab-button px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${index === 0 ? "bg-purple-600 text-white dark:bg-purple-500" : "bg-white dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-purple-400 dark:hover:border-purple-500"}`}
+              data-tab={category}
+            >
               {category}
-            </h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {skills.map((skill, index) => (
-                <div
-                  class={`skill-card group bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-lg p-3 hover:border-purple-500 dark:hover:border-purple-400 hover:shadow-md transition-all duration-200 relative ${skill.description ? "cursor-pointer" : ""}`}
-                  data-skill-id={`${category}-${index}`}
-                  data-has-description={skill.description ? "true" : "false"}
-                >
-                  <div class="flex items-start justify-between gap-2">
-                    <h4 class="text-base font-semibold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors flex items-center gap-1">
-                      {skill.name}
-                      {skill.description && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
-                          class="w-4 h-4 text-purple-600 dark:text-purple-400 ml-1"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
-                          />
-                        </svg>
-                      )}
-                    </h4>
-                    <span class="inline-block px-2 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-xs font-medium rounded-full whitespace-nowrap flex-shrink-0">
-                      {skill.experience}
-                    </span>
-                  </div>
+            </button>
+          ))
+        }
+      </div>
+    </div>
 
-                  {skill.description && (
-                    <div class="description-popup absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 border-2 border-purple-500 dark:border-purple-400 rounded-lg p-4 shadow-xl opacity-0 invisible transition-all duration-200 z-50">
-                      <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                        {skill.description}
-                      </p>
-                      <div class="absolute -top-2 left-4 w-4 h-4 bg-white dark:bg-gray-800 border-t-2 border-l-2 border-purple-500 dark:border-purple-400 transform rotate-45" />
+    <div class="mb-12">
+      {
+        Object.entries(skillsByCategory).map(([category, skills], index) => (
+          <div
+            class={`tab-content ${index === 0 ? "" : "hidden"}`}
+            data-content={category}
+          >
+            <div class="bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {skills.map((skill, skillIndex) => (
+                  <div
+                    class={`skill-card group bg-white dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 rounded-lg p-3 hover:border-purple-500 dark:hover:border-purple-400 hover:shadow-md transition-all duration-200 relative ${skill.description ? "cursor-pointer" : ""}`}
+                    data-skill-id={`${category}-${skillIndex}`}
+                    data-has-description={skill.description ? "true" : "false"}
+                  >
+                    <div class="flex items-start justify-between gap-2">
+                      <h4 class="text-base font-semibold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors flex items-center gap-1">
+                        {skill.name}
+                        {skill.description && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-4 h-4 text-purple-600 dark:text-purple-400 ml-1"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+                            />
+                          </svg>
+                        )}
+                      </h4>
+                      <span class="inline-block px-2 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-xs font-medium rounded-full whitespace-nowrap flex-shrink-0">
+                        {skill.experience}
+                      </span>
                     </div>
-                  )}
-                </div>
-              ))}
+
+                    {skill.description && (
+                      <div class="description-popup absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 border-2 border-purple-500 dark:border-purple-400 rounded-lg p-4 shadow-xl opacity-0 invisible transition-all duration-200 z-50">
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                          {skill.description}
+                        </p>
+                        <div class="absolute -top-2 left-4 w-4 h-4 bg-white dark:bg-gray-800 border-t-2 border-l-2 border-purple-500 dark:border-purple-400 transform rotate-45" />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         ))
@@ -202,8 +218,69 @@ const certifications = [
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const tabContents = document.querySelectorAll(".tab-content");
     const skillCards = document.querySelectorAll(".skill-card");
 
+    // タブ切り替え機能
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const tabName = button.getAttribute("data-tab");
+
+        // すべてのタブボタンの状態をリセット
+        tabButtons.forEach((btn) => {
+          btn.classList.remove(
+            "bg-purple-600",
+            "text-white",
+            "dark:bg-purple-500"
+          );
+          btn.classList.add(
+            "bg-white",
+            "dark:bg-gray-800/50",
+            "text-gray-700",
+            "dark:text-gray-300",
+            "border",
+            "border-gray-200",
+            "dark:border-gray-700",
+            "hover:border-purple-400",
+            "dark:hover:border-purple-500"
+          );
+        });
+
+        // クリックされたタブをアクティブに
+        button.classList.add(
+          "bg-purple-600",
+          "text-white",
+          "dark:bg-purple-500"
+        );
+        button.classList.remove(
+          "bg-white",
+          "dark:bg-gray-800/50",
+          "text-gray-700",
+          "dark:text-gray-300",
+          "border",
+          "border-gray-200",
+          "dark:border-gray-700",
+          "hover:border-purple-400",
+          "dark:hover:border-purple-500"
+        );
+
+        // すべてのタブコンテンツを非表示に
+        tabContents.forEach((content) => {
+          content.classList.add("hidden");
+        });
+
+        // 選択されたタブコンテンツを表示
+        const activeContent = document.querySelector(
+          `[data-content="${tabName}"]`
+        );
+        if (activeContent) {
+          activeContent.classList.remove("hidden");
+        }
+      });
+    });
+
+    // スキルカードのクリック処理
     skillCards.forEach((card) => {
       // 説明があるかどうかを確認
       const hasDescription =
