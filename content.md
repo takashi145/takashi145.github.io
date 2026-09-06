@@ -72,6 +72,42 @@
 
 :::
 
+:::
+
+---
+
+~ | | |
+~ | :---: | :--- |
+~ | [~work2-thumb] | [~work2-body] |
+
+:::warp work2-thumb
+
+![ClipPiP のアイコン](./images/clip-pip.png =128x)
+
+:::
+
+:::warp work2-body
+
+### ClipPiP
+
+選択した範囲やテキストを、常に最前面に表示される Picture-in-Picture ウィンドウに一時表示する Chrome 拡張機能。
+
+[Chrome ウェブストア →](https://chromewebstore.google.com/detail/clippip/faembjkijkdjogdmafahklkdheibfccj) · [GitHub →](https://github.com/takashi145/clip_pip)
+
+:::details 詳細
+
+**使用技術：** TypeScript · Chrome拡張（Manifest V3）· esbuild
+
+**主な機能：**
+- Area Pin：ページ上の範囲をドラッグで選択し、その静止画をPiP表示
+- Live Pin：選択範囲をページに追従するライブ映像としてPiP表示
+- Text Pin：選択したテキストを右クリックからPiP表示
+- ツールバー・右クリックメニュー・キーボードショートカットから起動
+
+:::
+
+:::
+
 :::footer
 © 2026 takashi145
 :::

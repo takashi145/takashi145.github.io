@@ -128,7 +128,7 @@ a:hover { text-decoration: underline; }
 #works ~ .lbs-table-silent { margin: 1.5em 0 2em; }
 #works ~ .lbs-table-silent td { vertical-align: top; }
 #works ~ .lbs-table-silent td:first-child { width: 240px; }
-#works ~ .lbs-table-silent .lbs-image { display: block; width: 100%; border-radius: 6px; border: 1px solid var(--border); }
+#works ~ .lbs-table-silent .lbs-image { display: block; max-width: 100%; margin: 0 auto; border-radius: 6px; }
 #works ~ .lbs-table-silent .lbs-heading-3 { margin-top: 0; }
 #works ~ .lbs-table-silent .lbs-paragraph:first-of-type { margin-top: 0; }
 
@@ -214,6 +214,7 @@ a:hover { text-decoration: underline; }
   /* 制作実績カード: サムネイルを上、本文を下に積む */
   #works ~ .lbs-table-silent td { text-align: left; }
   #works ~ .lbs-table-silent td:first-child { width: 100%; margin-bottom: 0.8em; }
+  #works ~ .lbs-table-silent .lbs-image { margin: 0; }
 
   .lbs-header { padding: 0.5rem 1.5rem; margin-bottom: 4rem; align-items: center; gap: 0.3rem 0.75rem; }
   .lbs-header .lbs-paragraph:first-child { order: 1; }
