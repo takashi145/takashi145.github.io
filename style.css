@@ -128,19 +128,37 @@ a:hover { text-decoration: underline; }
 .profile {
   display: flex;
   align-items: center;
-  gap: 1.8rem;
-  padding: 1rem 0 0.5rem;
+  gap: 2.2rem;
+  padding: 0.8rem 0 1.2rem;
+  border-bottom: 1px solid var(--border);
 }
-.profile-image { flex: none; border-radius: 50%; }
+.profile-image {
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  padding: 3px;
+}
 .profile-body > :first-child { margin-top: 0; }
 .profile-role {
-  margin: 0 0 0.6em;
+  margin: 0.4em 0 0.6em;
   font-family: var(--mono);
   font-size: 0.85em;
   color: var(--muted);
   letter-spacing: 0.02em;
 }
-.profile-links { font-family: var(--mono); font-size: 0.85em; }
+.profile-body p { margin: 0.5em 0; }
+.profile-links { margin: 0.7em 0 0; }
+.profile-links a {
+  font-family: var(--mono);
+  font-size: 0.78em;
+  font-weight: 500;
+  color: var(--link);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+.profile-links a:hover { border-bottom-color: var(--link); }
 
 /* 経歴 */
 .history {
