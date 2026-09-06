@@ -23,10 +23,10 @@
     <header class="site-header">
       <p class="site-title">ポートフォリオ</p>
       <nav class="site-nav">
-        <a href="#about">自己紹介</a> ·
-        <a href="#history">経歴</a> ·
-        <a href="#skills">スキル</a> ·
-        <a href="#certifications">資格・検定</a> ·
+        <a href="#about">自己紹介</a>
+        <a href="#history">経歴</a>
+        <a href="#skills">スキル</a>
+        <a href="#certifications">資格・検定</a>
         <a href="#works">制作物</a>
       </nav>
       <button id="theme-toggle" type="button"></button>
@@ -43,83 +43,104 @@
         >
         <div class="profile-body">
           <h1 id="about">takashi145</h1>
-          <p><strong>駆け出しプログラマー</strong></p>
+          <p class="profile-role">駆け出しプログラマー</p>
           <p>
             プログラミングを趣味として楽しんでいます。<br>
             気になった技術を触りながら、少しずつできることを増やしています。
           </p>
-          <ul>
-            <li><a href="https://github.com/takashi145">GitHub</a></li>
-          </ul>
+          <p class="profile-links"><a href="https://github.com/takashi145">GitHub</a></p>
         </div>
       </section>
 
       <section>
         <h2 id="history">経歴</h2>
-        <table class="history-table">
-          <thead>
-            <tr>
-              <th>期間</th>
-              <th>所属</th>
-              <th>内容</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2024年4月 - 現在</td>
-              <td>ゲーム・Web系開発会社</td>
-              <td>新卒で入社。スマホ向けゲーム等のサーバーサイド開発を担当</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="history">
+          <article class="entry">
+            <p class="entry-meta">2024年4月 - 現在</p>
+            <h3 class="entry-title">ゲーム・Web系開発会社</h3>
+            <p class="entry-desc">新卒で入社。スマホ向けゲーム等のサーバーサイド開発を担当</p>
+          </article>
+        </div>
       </section>
 
       <section>
         <h2 id="skills">スキル</h2>
 
-        <h3>言語</h3>
-        <ul>
-          <li><strong>HTML5 / CSS3</strong>（実務・趣味 / 約4年）</li>
-          <li><strong>JavaScript / Typescript</strong>（実務・趣味 / 約3年）</li>
-          <li><strong>PHP</strong>（趣味 / 約4年）</li>
-          <li><strong>SQL</strong>（実務 / 約3年）</li>
+        <h3 class="group-title">言語</h3>
+        <ul class="skill-list">
+          <li>
+            <span class="skill-name">HTML5 / CSS3</span>
+            <span class="skill-use">実務・趣味</span>
+            <span class="skill-years">約4年</span>
+          </li>
+          <li>
+            <span class="skill-name">JavaScript / Typescript</span>
+            <span class="skill-use">実務・趣味</span>
+            <span class="skill-years">約3年</span>
+          </li>
+          <li>
+            <span class="skill-name">PHP</span>
+            <span class="skill-use">趣味</span>
+            <span class="skill-years">約4年</span>
+          </li>
+          <li>
+            <span class="skill-name">SQL</span>
+            <span class="skill-use">実務</span>
+            <span class="skill-years">約3年</span>
+          </li>
         </ul>
 
-        <h3>フレームワーク / ライブラリ</h3>
-        <ul>
-          <li><strong>Laravel</strong>（実務・趣味 / 約2年）</li>
-          <li><strong>React</strong>（実務・趣味 / 約4年）</li>
-          <li><strong>Vue.js</strong>（趣味 / 約2年）</li>
+        <h3 class="group-title">フレームワーク / ライブラリ</h3>
+        <ul class="skill-list">
+          <li>
+            <span class="skill-name">Laravel</span>
+            <span class="skill-use">実務・趣味</span>
+            <span class="skill-years">約2年</span>
+          </li>
+          <li>
+            <span class="skill-name">React</span>
+            <span class="skill-use">実務・趣味</span>
+            <span class="skill-years">約4年</span>
+          </li>
+          <li>
+            <span class="skill-name">Vue.js</span>
+            <span class="skill-use">趣味</span>
+            <span class="skill-years">約2年</span>
+          </li>
         </ul>
 
-        <h3>ツール / インフラ</h3>
-        <ul>
-          <li><strong>Git / GitHub / GitLab</strong>（実務・趣味 / 約4年）</li>
-          <li><strong>MySQL</strong>（実務・趣味 / 約2年）</li>
-          <li><strong>Docker</strong>（実務 / 約1年）</li>
+        <h3 class="group-title">ツール / インフラ</h3>
+        <ul class="skill-list">
+          <li>
+            <span class="skill-name">Git / GitHub / GitLab</span>
+            <span class="skill-use">実務・趣味</span>
+            <span class="skill-years">約4年</span>
+          </li>
+          <li>
+            <span class="skill-name">MySQL</span>
+            <span class="skill-use">実務・趣味</span>
+            <span class="skill-years">約2年</span>
+          </li>
+          <li>
+            <span class="skill-name">Docker</span>
+            <span class="skill-use">実務</span>
+            <span class="skill-years">約1年</span>
+          </li>
         </ul>
       </section>
 
       <section>
         <h2 id="certifications">資格・検定</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>取得年月</th>
-              <th>資格名</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2023年6月</td>
-              <td>基本情報技術者試験</td>
-            </tr>
-            <tr>
-              <td>2025年8月</td>
-              <td>第9回ねこ検定 初級・中級・上級</td>
-            </tr>
-          </tbody>
-        </table>
+        <ul class="cert-list">
+          <li>
+            <span class="cert-date">2023年6月</span>
+            <span class="cert-name">基本情報技術者試験</span>
+          </li>
+          <li>
+            <span class="cert-date">2025年8月</span>
+            <span class="cert-name">第9回ねこ検定 初級・中級・上級</span>
+          </li>
+        </ul>
       </section>
 
       <section>
@@ -128,18 +149,19 @@
         <article class="work">
           <div class="work-thumb">
             <img src="./images/skyward-canvas.gif" alt="SKYWARD CANVAS のデモ" width="240">
+            <p class="work-links">
+              <a href="https://takashi145.github.io/skyward-canvas/">Site</a>
+              <a href="https://github.com/takashi145/skyward-canvas">Source</a>
+            </p>
           </div>
           <div class="work-body">
-            <h3>SKYWARD CANVAS</h3>
+            <h3 class="work-title">SKYWARD CANVAS</h3>
             <p>寝そべってただ空を見上げるためのWeb作品。ぼーっとしたいとき、考え事をしたいとき、少しだけ頭を休ませたいとき用。</p>
-            <p>
-              <a href="https://takashi145.github.io/skyward-canvas/">サイトを見る →</a> ·
-              <a href="https://github.com/takashi145/skyward-canvas">GitHub →</a>
-            </p>
             <details>
               <summary>詳細</summary>
-              <p><strong>使用技術：</strong> JavaScript · Canvas API · Web Audio API</p>
-              <p><strong>主な機能：</strong></p>
+              <p class="detail-label">使用技術</p>
+              <p class="work-stack">JavaScript · Canvas API · Web Audio API</p>
+              <p class="detail-label">主な機能</p>
               <ul>
                 <li>快晴・雨・雪の天候切り替えと、降水量のスライダー調整</li>
                 <li>環境音再生（ON / OFF・音量調整）</li>
@@ -148,23 +170,22 @@
           </div>
         </article>
 
-        <hr>
-
         <article class="work">
           <div class="work-thumb">
             <img src="./images/clip-pip.png" alt="ClipPiP のアイコン" width="128">
+            <p class="work-links">
+              <a href="https://chromewebstore.google.com/detail/clippip/faembjkijkdjogdmafahklkdheibfccj">Store</a>
+              <a href="https://github.com/takashi145/clip_pip">Source</a>
+            </p>
           </div>
           <div class="work-body">
-            <h3>ClipPiP</h3>
+            <h3 class="work-title">ClipPiP</h3>
             <p>選択した範囲やテキストを、常に最前面に表示される Picture-in-Picture ウィンドウに一時表示する Chrome 拡張機能。</p>
-            <p>
-              <a href="https://chromewebstore.google.com/detail/clippip/faembjkijkdjogdmafahklkdheibfccj">Chrome ウェブストア →</a> ·
-              <a href="https://github.com/takashi145/clip_pip">GitHub →</a>
-            </p>
             <details>
               <summary>詳細</summary>
-              <p><strong>使用技術：</strong> TypeScript · Chrome拡張（Manifest V3）· esbuild</p>
-              <p><strong>主な機能：</strong></p>
+              <p class="detail-label">使用技術</p>
+              <p class="work-stack">TypeScript · Chrome拡張（Manifest V3）· esbuild</p>
+              <p class="detail-label">主な機能</p>
               <ul>
                 <li>Area Pin：ページ上の範囲をドラッグで選択し、その静止画をPiP表示</li>
                 <li>Live Pin：選択範囲をページに追従するライブ映像としてPiP表示</li>
