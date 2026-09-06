@@ -93,6 +93,8 @@ a:hover { text-decoration: underline; }
 /* List */
 .lbs-ul      { margin: 0.5em 0; padding-left: 1.8em; }
 .lbs-list-item { margin: 0.2em 0; }
+.lbs-ul .lbs-ul { list-style: none; margin: 0.15em 0 0.7em; padding-left: 0; color: var(--muted); font-size: 0.92em; }
+.lbs-ul .lbs-ul .lbs-list-item { margin: 0.15em 0; }
 
 /* Silent table */
 .lbs-table-silent { width: 100%; }
@@ -106,7 +108,6 @@ a:hover { text-decoration: underline; }
 .lbs-table:not(.lbs-table-silent) th,
 .lbs-table:not(.lbs-table-silent) td { padding: 0.5em 1em; border: 1px solid var(--border); }
 .lbs-table:not(.lbs-table-silent) thead th { background: var(--surface); }
-.lbs-table:not(.lbs-table-silent) td[rowspan] { background: var(--surface); white-space: nowrap; width: 1%; }
 
 /* Details */
 .lbs-details { margin: 1em 0; border: 1px solid var(--border); border-radius: 6px; padding: 0.5em 1em; background: var(--surface); }
@@ -118,13 +119,23 @@ a:hover { text-decoration: underline; }
 @media (max-width: 700px) {
   #content { font-size: 0.9em; }
 
-  .lbs-table:not(.lbs-table-silent) td[rowspan] { white-space: normal; width: auto; }
-
   .lbs-table-silent,
   .lbs-table-silent tbody,
   .lbs-table-silent tr,
   .lbs-table-silent td { display: block; width: 100%; }
   .lbs-table-silent td { padding: 0; text-align: center; }
+
+  /* 経歴テーブル: スマホでは縦積みのカードにする */
+  #history + .lbs-table thead { display: none; }
+  #history + .lbs-table,
+  #history + .lbs-table tbody,
+  #history + .lbs-table tr,
+  #history + .lbs-table td { display: block; width: 100%; box-sizing: border-box; }
+  #history + .lbs-table tr { border: 1px solid var(--border); border-radius: 6px; padding: 0.6em 0.9em; margin-bottom: 0.7em; }
+  #history + .lbs-table td { border: none; padding: 0; }
+  #history + .lbs-table td:nth-child(1) { font-size: 0.9em; color: var(--muted); }
+  #history + .lbs-table td:nth-child(2) { font-weight: 600; }
+  #history + .lbs-table td:nth-child(3) { margin-top: 0.2em; }
 
   .lbs-header { padding: 0.5rem 1rem; margin-bottom: 4rem; }
   .lbs-header .lbs-paragraph:first-child { font-size: 1em; }
