@@ -1,7 +1,7 @@
 :::header
 ポートフォリオ
 
-[自己紹介](#about) · [経歴](#history) · [スキル](#skills) · [資格・検定](#certifications) · [制作実績](#works)
+[自己紹介](#about) · [経歴](#history) · [スキル](#skills) · [資格・検定](#certifications) · [制作物](#works)
 :::
 
 ~ | | |
@@ -42,41 +42,33 @@
 | 2023年6月 | 基本情報技術者試験 |
 | 2025年8月 | 第9回ねこ検定 初級・中級・上級 |
 
-## 制作実績 {#works}
+## 制作物 {#works}
 
-### プロジェクト名
+~ | | |
+~ | :---: | :--- |
+~ | [~work1-thumb] | [~work1-body] |
 
-プロジェクトの説明。
+:::warp work1-thumb
 
-[プロジェクトを見る →](#)
-
-:::details 詳細
-
-**使用技術：** Vue.js · Laravel · MySQL · Docker
-
-**主な機能：**
-- ユーザー認証・ログイン機能
-- データの一覧表示・検索・フィルタリング
-- 管理者向けダッシュボード
+![SKYWARD CANVAS のデモ](./images/skyward-canvas.gif =240x)
 
 :::
 
----
+:::warp work1-body
 
-### プロジェクト名
+### SKYWARD CANVAS
 
-プロジェクトの説明。
+寝そべってただ空を見上げるためのWeb作品。ぼーっとしたいとき、考え事をしたいとき、少しだけ頭を休ませたいとき用。
 
-[プロジェクトを見る →](#)
+[サイトを見る →](https://takashi145.github.io/skyward-canvas/) · [GitHub →](https://github.com/takashi145/skyward-canvas)
 
 :::details 詳細
 
-**使用技術：** React · Django · MySQL
+**使用技術：** JavaScript · Canvas API · Web Audio API
 
 **主な機能：**
-- フォームのバリデーションと送信
-- レスポンシブ対応レイアウト
-- APIとのデータ連携
+- 快晴・雨・雪の天候切り替えと、降水量のスライダー調整
+- 環境音再生（ON / OFF・音量調整）
 
 :::
 
