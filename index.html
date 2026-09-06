@@ -3,9 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>takashi145 のポートフォリオ</title>
+    <meta name="description" content="takashi145 のポートフォリオ。経歴、スキル、資格・検定、制作物をまとめています。">
+    <link rel="icon" href="./favicon.ico">
     <link rel="stylesheet" href="./style.css">
     <script>
+      // 描画前にテーマを確定させる（保存値なし = システム設定に追従）
       (function () {
         const saved = localStorage.getItem("theme");
         const dark =
@@ -14,102 +17,166 @@
         if (dark) document.documentElement.setAttribute("data-theme", "dark");
       })();
     </script>
+    <script src="./script.js" defer></script>
   </head>
   <body>
-    <button id="theme-toggle"></button>
-    <div id="content"></div>
-    <script type="module">
-      import { loadMarkdown } from "https://hacknock.github.io/lobsterjs/lobster.js";
-      Promise.resolve(loadMarkdown("./content.md", document.getElementById("content")))
-        .then(() => {
-          moveThemeToggleIntoHeader();
-          initNavHighlight();
-        });
+    <header class="site-header">
+      <p class="site-title">ポートフォリオ</p>
+      <nav class="site-nav">
+        <a href="#about">自己紹介</a> ·
+        <a href="#history">経歴</a> ·
+        <a href="#skills">スキル</a> ·
+        <a href="#certifications">資格・検定</a> ·
+        <a href="#works">制作物</a>
+      </nav>
+      <button id="theme-toggle" type="button"></button>
+    </header>
 
-      function moveThemeToggleIntoHeader() {
-        const header = document.querySelector(".lbs-header");
-        const toggle = document.getElementById("theme-toggle");
-        if (!header || !toggle) return;
-        header.appendChild(toggle);
-        toggle.classList.add("in-header");
-      }
+    <main>
+      <section class="profile">
+        <img
+          class="profile-image"
+          src="https://avatars.githubusercontent.com/u/84027833"
+          alt="プロフィール画像"
+          width="150"
+          height="150"
+        >
+        <div class="profile-body">
+          <h1 id="about">takashi145</h1>
+          <p><strong>駆け出しプログラマー</strong></p>
+          <p>
+            プログラミングを趣味として楽しんでいます。<br>
+            気になった技術を触りながら、少しずつできることを増やしています。
+          </p>
+          <ul>
+            <li><a href="https://github.com/takashi145">GitHub</a></li>
+          </ul>
+        </div>
+      </section>
 
-      function initNavHighlight() {
-        const items = [...document.querySelectorAll(".lbs-header a[href^='#']")]
-          .map((a) => ({ a, el: document.getElementById(a.getAttribute("href").slice(1)) }))
-          .filter((item) => item.el);
-        if (items.length === 0) return;
+      <section>
+        <h2 id="history">経歴</h2>
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>期間</th>
+              <th>所属</th>
+              <th>内容</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2024年4月 - 現在</td>
+              <td>ゲーム・Web系開発会社</td>
+              <td>新卒で入社。スマホ向けゲーム等のサーバーサイド開発を担当</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-        // ヘッダーの実測の高さで補正する（画面幅によって高さが変わるため）
-        const header = document.querySelector(".lbs-header");
-        const offset = () => (header ? header.getBoundingClientRect().height + 8 : 70);
-        let current = null;
-        let ticking = false;
+      <section>
+        <h2 id="skills">スキル</h2>
 
-        const sync = () => {
-          ticking = false;
-          let active = items[0];
-          const limit = offset();
-          for (const item of items) {
-            if (item.el.getBoundingClientRect().top <= limit) active = item;
-          }
-          if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
-            active = items[items.length - 1];
-          }
-          if (active === current) return;
-          current = active;
-          items.forEach((item) => item.a.classList.toggle("is-current", item === active));
-        };
+        <h3>言語</h3>
+        <ul>
+          <li><strong>HTML5 / CSS3</strong>（実務・趣味 / 約4年）</li>
+          <li><strong>JavaScript / Typescript</strong>（実務・趣味 / 約3年）</li>
+          <li><strong>PHP</strong>（趣味 / 約4年）</li>
+          <li><strong>SQL</strong>（実務 / 約3年）</li>
+        </ul>
 
-        const onScroll = () => {
-          if (ticking) return;
-          ticking = true;
-          requestAnimationFrame(sync);
-        };
+        <h3>フレームワーク / ライブラリ</h3>
+        <ul>
+          <li><strong>Laravel</strong>（実務・趣味 / 約2年）</li>
+          <li><strong>React</strong>（実務・趣味 / 約4年）</li>
+          <li><strong>Vue.js</strong>（趣味 / 約2年）</li>
+        </ul>
 
-        addEventListener("scroll", onScroll, { passive: true });
-        addEventListener("resize", onScroll);
-        sync();
-      }
+        <h3>ツール / インフラ</h3>
+        <ul>
+          <li><strong>Git / GitHub / GitLab</strong>（実務・趣味 / 約4年）</li>
+          <li><strong>MySQL</strong>（実務・趣味 / 約2年）</li>
+          <li><strong>Docker</strong>（実務 / 約1年）</li>
+        </ul>
+      </section>
 
-      const btn = document.getElementById("theme-toggle");
-      const root = document.documentElement;
-      const media = window.matchMedia("(prefers-color-scheme: dark)");
-      const MODES = ["light", "dark", "system"];
-      const LABELS = { light: "Light", dark: "Dark", system: "System" };
+      <section>
+        <h2 id="certifications">資格・検定</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>取得年月</th>
+              <th>資格名</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2023年6月</td>
+              <td>基本情報技術者試験</td>
+            </tr>
+            <tr>
+              <td>2025年8月</td>
+              <td>第9回ねこ検定 初級・中級・上級</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
-      const currentMode = () => {
-        const saved = localStorage.getItem("theme");
-        return saved === "light" || saved === "dark" ? saved : "system";
-      };
+      <section>
+        <h2 id="works">制作物</h2>
 
-      const applyTheme = () => {
-        const mode = currentMode();
-        const dark = mode === "dark" || (mode === "system" && media.matches);
-        if (dark) {
-          root.setAttribute("data-theme", "dark");
-        } else {
-          root.removeAttribute("data-theme");
-        }
-        btn.textContent = LABELS[mode];
-        btn.title = "表示テーマ: " + LABELS[mode] + "（クリックで切り替え）";
-      };
+        <article class="work">
+          <div class="work-thumb">
+            <img src="./images/skyward-canvas.gif" alt="SKYWARD CANVAS のデモ" width="240">
+          </div>
+          <div class="work-body">
+            <h3>SKYWARD CANVAS</h3>
+            <p>寝そべってただ空を見上げるためのWeb作品。ぼーっとしたいとき、考え事をしたいとき、少しだけ頭を休ませたいとき用。</p>
+            <p>
+              <a href="https://takashi145.github.io/skyward-canvas/">サイトを見る →</a> ·
+              <a href="https://github.com/takashi145/skyward-canvas">GitHub →</a>
+            </p>
+            <details>
+              <summary>詳細</summary>
+              <p><strong>使用技術：</strong> JavaScript · Canvas API · Web Audio API</p>
+              <p><strong>主な機能：</strong></p>
+              <ul>
+                <li>快晴・雨・雪の天候切り替えと、降水量のスライダー調整</li>
+                <li>環境音再生（ON / OFF・音量調整）</li>
+              </ul>
+            </details>
+          </div>
+        </article>
 
-      btn.addEventListener("click", () => {
-        const next = MODES[(MODES.indexOf(currentMode()) + 1) % MODES.length];
-        if (next === "system") {
-          localStorage.removeItem("theme");
-        } else {
-          localStorage.setItem("theme", next);
-        }
-        applyTheme();
-      });
+        <hr>
 
-      media.addEventListener("change", () => {
-        if (currentMode() === "system") applyTheme();
-      });
+        <article class="work">
+          <div class="work-thumb">
+            <img src="./images/clip-pip.png" alt="ClipPiP のアイコン" width="128">
+          </div>
+          <div class="work-body">
+            <h3>ClipPiP</h3>
+            <p>選択した範囲やテキストを、常に最前面に表示される Picture-in-Picture ウィンドウに一時表示する Chrome 拡張機能。</p>
+            <p>
+              <a href="https://chromewebstore.google.com/detail/clippip/faembjkijkdjogdmafahklkdheibfccj">Chrome ウェブストア →</a> ·
+              <a href="https://github.com/takashi145/clip_pip">GitHub →</a>
+            </p>
+            <details>
+              <summary>詳細</summary>
+              <p><strong>使用技術：</strong> TypeScript · Chrome拡張（Manifest V3）· esbuild</p>
+              <p><strong>主な機能：</strong></p>
+              <ul>
+                <li>Area Pin：ページ上の範囲をドラッグで選択し、その静止画をPiP表示</li>
+                <li>Live Pin：選択範囲をページに追従するライブ映像としてPiP表示</li>
+                <li>Text Pin：選択したテキストを右クリックからPiP表示</li>
+                <li>ツールバー・右クリックメニュー・キーボードショートカットから起動</li>
+              </ul>
+            </details>
+          </div>
+        </article>
+      </section>
+    </main>
 
-      applyTheme();
-    </script>
+    <footer class="site-footer">© 2026 takashi145</footer>
   </body>
 </html>
