@@ -25,10 +25,22 @@ body { background: var(--bg); color: var(--color); }
   background: var(--surface);
   border: 1px solid var(--border);
   color: var(--color);
-  padding: 0.4rem 0.7rem;
-  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  padding: 0.22rem 0.55rem;
+  border-radius: 5px;
   cursor: pointer;
   z-index: 100;
+  min-width: 3.9rem;
+  text-align: center;
+}
+/* ヘッダー内に移動できたとき（JSが動かない場合は上の fixed のまま） */
+#theme-toggle.in-header {
+  position: static;
+  margin-left: auto;
+  flex: none;
+  align-self: center;
 }
 
 #to-top {
@@ -216,7 +228,10 @@ a:hover { text-decoration: underline; }
   #works ~ .lbs-table-silent td { text-align: left; }
   #works ~ .lbs-table-silent td:first-child { width: 100%; margin-bottom: 0.8em; }
 
-  .lbs-header { padding: 0.5rem 1.5rem; margin-bottom: 4rem; flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+  .lbs-header { padding: 0.5rem 1.5rem; margin-bottom: 4rem; align-items: center; gap: 0.3rem 0.75rem; }
+  .lbs-header .lbs-paragraph:first-child { order: 1; }
+  #theme-toggle.in-header { order: 2; }
+  .lbs-header .lbs-paragraph:not(:first-child) { order: 3; flex-basis: 100%; }
   .lbs-header .lbs-paragraph:first-child { font-size: 1em; }
   .lbs-header .lbs-paragraph:not(:first-child) { font-size: 0.9em; line-height: 1.5; }
   .lbs-header .lbs-paragraph:not(:first-child) a { white-space: nowrap; display: inline-block; padding: 0.3em 0; }

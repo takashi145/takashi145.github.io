@@ -6,11 +6,13 @@
     <title>Portfolio</title>
     <link rel="stylesheet" href="./style.css">
     <script>
-      const saved = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (saved === "dark" || (!saved && prefersDark)) {
-        document.documentElement.setAttribute("data-theme", "dark");
-      }
+      (function () {
+        const saved = localStorage.getItem("theme");
+        const dark =
+          saved === "dark" ||
+          (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (dark) document.documentElement.setAttribute("data-theme", "dark");
+      })();
     </script>
   </head>
   <body>
@@ -20,7 +22,18 @@
     <script type="module">
       import { loadMarkdown } from "https://hacknock.github.io/lobsterjs/lobster.js";
       Promise.resolve(loadMarkdown("./content.md", document.getElementById("content")))
-        .then(initNavHighlight);
+        .then(() => {
+          moveThemeToggleIntoHeader();
+          initNavHighlight();
+        });
+
+      function moveThemeToggleIntoHeader() {
+        const header = document.querySelector(".lbs-header");
+        const toggle = document.getElementById("theme-toggle");
+        if (!header || !toggle) return;
+        header.appendChild(toggle);
+        toggle.classList.add("in-header");
+      }
 
       function initNavHighlight() {
         const items = [...document.querySelectorAll(".lbs-header a[href^='#']")]
@@ -62,20 +75,42 @@
 
       const btn = document.getElementById("theme-toggle");
       const root = document.documentElement;
-      const update = () => {
-        btn.textContent = root.hasAttribute("data-theme") ? "Light" : "Dark";
+      const media = window.matchMedia("(prefers-color-scheme: dark)");
+      const MODES = ["light", "dark", "system"];
+      const LABELS = { light: "Light", dark: "Dark", system: "System" };
+
+      const currentMode = () => {
+        const saved = localStorage.getItem("theme");
+        return saved === "light" || saved === "dark" ? saved : "system";
       };
-      btn.addEventListener("click", () => {
-        const isDark = root.hasAttribute("data-theme");
-        if (isDark) {
-          root.removeAttribute("data-theme");
-        } else {
+
+      const applyTheme = () => {
+        const mode = currentMode();
+        const dark = mode === "dark" || (mode === "system" && media.matches);
+        if (dark) {
           root.setAttribute("data-theme", "dark");
+        } else {
+          root.removeAttribute("data-theme");
         }
-        localStorage.setItem("theme", isDark ? "light" : "dark");
-        update();
+        btn.textContent = LABELS[mode];
+        btn.title = "表示テーマ: " + LABELS[mode] + "（クリックで切り替え）";
+      };
+
+      btn.addEventListener("click", () => {
+        const next = MODES[(MODES.indexOf(currentMode()) + 1) % MODES.length];
+        if (next === "system") {
+          localStorage.removeItem("theme");
+        } else {
+          localStorage.setItem("theme", next);
+        }
+        applyTheme();
       });
-      update();
+
+      media.addEventListener("change", () => {
+        if (currentMode() === "system") applyTheme();
+      });
+
+      applyTheme();
     </script>
   </body>
 </html>
