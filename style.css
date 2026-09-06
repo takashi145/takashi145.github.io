@@ -71,12 +71,28 @@ body { background: var(--bg); color: var(--color); }
   top: 0;
   z-index: 50;
   background: var(--bg);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   margin: -2rem -1.5rem 1.5rem;
-  padding: 0.6rem 1.5rem;
+  padding: 0.7rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 0.3rem 1.5rem;
 }
-.lbs-header .lbs-paragraph:first-child { margin: 0 0 0.3rem; font-size: 1.2em; font-weight: 700; letter-spacing: 0.05em; color: var(--color); }
-.lbs-header .lbs-paragraph:not(:first-child) { margin: 0; font-size: 0.9em; font-weight: normal; }
+.lbs-header .lbs-paragraph:first-child { margin: 0; font-size: 1.15em; font-weight: 700; letter-spacing: 0.05em; color: var(--color); }
+.lbs-header .lbs-paragraph:not(:first-child) { margin: 0; font-size: 0.9em; font-weight: normal; color: var(--muted); }
+.lbs-header a {
+  color: var(--muted);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.lbs-header a:hover { color: var(--link); border-bottom-color: var(--link); text-decoration: none; }
+.lbs-header a.is-current { color: var(--color); border-bottom-color: var(--color); }
 
 /* Scroll offset for sticky header */
 .lbs-heading-1,
@@ -137,8 +153,13 @@ a:hover { text-decoration: underline; }
   #history + .lbs-table td:nth-child(2) { font-weight: 600; }
   #history + .lbs-table td:nth-child(3) { margin-top: 0.2em; }
 
-  .lbs-header { padding: 0.5rem 1rem; margin-bottom: 4rem; }
+  .lbs-header { padding: 0.5rem 1.5rem; margin-bottom: 4rem; flex-direction: column; align-items: flex-start; gap: 0.25rem; }
   .lbs-header .lbs-paragraph:first-child { font-size: 1em; }
-  .lbs-header .lbs-paragraph:not(:first-child) { font-size: 0.75em; line-height: 1.6; }
-  .lbs-header .lbs-paragraph:not(:first-child) a { white-space: nowrap; }
+  .lbs-header .lbs-paragraph:not(:first-child) { font-size: 0.9em; line-height: 1.5; }
+  .lbs-header .lbs-paragraph:not(:first-child) a { white-space: nowrap; display: inline-block; padding: 0.3em 0; }
+
+  /* ヘッダーが2行ぶん高くなるのでアンカー位置をずらす */
+  .lbs-heading-1,
+  .lbs-heading-2,
+  .lbs-heading-3 { scroll-margin-top: 100px; }
 }

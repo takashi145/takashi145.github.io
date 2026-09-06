@@ -19,7 +19,46 @@
     <div id="content"></div>
     <script type="module">
       import { loadMarkdown } from "https://hacknock.github.io/lobsterjs/lobster.js";
-      loadMarkdown("./content.md", document.getElementById("content"));
+      Promise.resolve(loadMarkdown("./content.md", document.getElementById("content")))
+        .then(initNavHighlight);
+
+      function initNavHighlight() {
+        const items = [...document.querySelectorAll(".lbs-header a[href^='#']")]
+          .map((a) => ({ a, el: document.getElementById(a.getAttribute("href").slice(1)) }))
+          .filter((item) => item.el);
+        if (items.length === 0) return;
+
+        // ヘッダーの実測の高さで補正する（画面幅によって高さが変わるため）
+        const header = document.querySelector(".lbs-header");
+        const offset = () => (header ? header.getBoundingClientRect().height + 8 : 70);
+        let current = null;
+        let ticking = false;
+
+        const sync = () => {
+          ticking = false;
+          let active = items[0];
+          const limit = offset();
+          for (const item of items) {
+            if (item.el.getBoundingClientRect().top <= limit) active = item;
+          }
+          if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+            active = items[items.length - 1];
+          }
+          if (active === current) return;
+          current = active;
+          items.forEach((item) => item.a.classList.toggle("is-current", item === active));
+        };
+
+        const onScroll = () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(sync);
+        };
+
+        addEventListener("scroll", onScroll, { passive: true });
+        addEventListener("resize", onScroll);
+        sync();
+      }
 
       const btn = document.getElementById("theme-toggle");
       const root = document.documentElement;
