@@ -43,19 +43,6 @@ body { background: var(--bg); color: var(--color); }
   align-self: center;
 }
 
-#to-top {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--color);
-  padding: 0.4rem 0.7rem;
-  border-radius: 6px;
-  cursor: pointer;
-  z-index: 100;
-}
-
 #content {
   max-width: 800px;
   margin: 0 auto;
