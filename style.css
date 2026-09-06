@@ -235,10 +235,12 @@ a:hover { text-decoration: underline; }
   display: flex;
   align-items: flex-start;
   gap: 1.5rem;
-  margin: 1.5em 0;
-  padding: 1.2rem;
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  margin: 2em 0;
+}
+.work + .work {
+  margin-top: 2em;
+  padding-top: 2em;
+  border-top: 1px solid var(--border);
 }
 .work-thumb {
   flex: none;
@@ -383,6 +385,7 @@ details[open] > *:not(summary) { animation: details-in 0.18s ease-out; }
   .cert-list li { grid-template-columns: 6.5em 1fr; gap: 0 0.7rem; }
 
   /* 制作物: サムネイルを上、本文を下に積む */
-  .work { flex-direction: column; gap: 1rem; padding: 1rem; }
+  .work { flex-direction: column; gap: 1rem; }
+  .work + .work { padding-top: 1.6em; }
   .work-thumb { width: 100%; align-items: flex-start; }
 }
