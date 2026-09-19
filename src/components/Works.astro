@@ -1,0 +1,43 @@
+---
+import { works } from "../data/works";
+---
+
+<section>
+  <h2 id="works">制作物</h2>
+
+  {
+    works.map((work) => (
+      <article class="work">
+        <div class="work-thumb">
+          <img
+            src={work.image.src}
+            alt={work.image.alt}
+            width={work.image.width}
+            height={work.image.height}
+            loading="lazy"
+          />
+          <p class="work-links">
+            {work.links.map((link) => (
+              <a href={link.href}>{link.label}</a>
+            ))}
+          </p>
+        </div>
+        <div class="work-body">
+          <h3 class="work-title">{work.title}</h3>
+          <p>{work.description}</p>
+          <details>
+            <summary>詳細</summary>
+            <p class="detail-label">使用技術</p>
+            <p class="work-stack">{work.stack}</p>
+            <p class="detail-label">主な機能</p>
+            <ul>
+              {work.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+          </details>
+        </div>
+      </article>
+    ))
+  }
+</section>

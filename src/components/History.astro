@@ -1,0 +1,18 @@
+---
+import { history } from "../data/history";
+---
+
+<section>
+  <h2 id="history">経歴</h2>
+  <div class="history">
+    {
+      history.map((entry) => (
+        <article class="entry">
+          <p class="entry-meta">{entry.period}</p>
+          <h3 class="entry-title">{entry.title}</h3>
+          <p class="entry-desc">{entry.desc}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>

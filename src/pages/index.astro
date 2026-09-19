@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Profile from '../components/Profile.astro';
+import History from '../components/History.astro';
+import Skills from '../components/Skills.astro';
+import Certs from '../components/Certs.astro';
+import Works from '../components/Works.astro';
+---
+
+<Base
+  title="takashi145 のポートフォリオ"
+  description="takashi145 のポートフォリオ。経歴、スキル、資格・検定、制作物をまとめています。"
+>
+  <Header slot="header" />
+
+  <Profile />
+  <History />
+  <Skills />
+  <Certs />
+  <Works />
+</Base>

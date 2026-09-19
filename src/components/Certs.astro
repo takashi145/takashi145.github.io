@@ -1,0 +1,17 @@
+---
+import { certs } from "../data/certs";
+---
+
+<section>
+  <h2 id="certifications">資格・検定</h2>
+  <ul class="cert-list">
+    {
+      certs.map((cert) => (
+        <li>
+          <span class="cert-date">{cert.date}</span>
+          <span class="cert-name">{cert.name}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>

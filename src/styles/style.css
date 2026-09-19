@@ -33,7 +33,6 @@ body {
 h1 { font-size: 2em; font-weight: 700; margin: 1.5em 0 0.4em; letter-spacing: -0.01em; }
 h3 { font-size: 1.05em; font-weight: 600; margin: 1.3em 0 0.3em; }
 
-/* セクション見出し: 連番 + 罫線 */
 h2 {
   display: flex;
   align-items: center;
@@ -69,7 +68,6 @@ img { max-width: 100%; height: auto; }
 a { color: var(--link); }
 a:hover { text-decoration: underline; }
 
-/* Header */
 .site-header {
   position: sticky;
   top: 0;
@@ -108,7 +106,6 @@ a:hover { text-decoration: underline; }
 .site-nav a:hover { color: var(--link); border-bottom-color: var(--link); }
 .site-nav a.is-current { color: var(--color); border-bottom-color: var(--color); }
 
-/* Theme toggle */
 #theme-toggle {
   margin-left: auto;
   min-width: 3.9rem;
@@ -124,7 +121,6 @@ a:hover { text-decoration: underline; }
   cursor: pointer;
 }
 
-/* Profile */
 .profile {
   display: flex;
   align-items: center;
@@ -147,7 +143,6 @@ a:hover { text-decoration: underline; }
   letter-spacing: 0.02em;
 }
 .profile-body p { margin: 0.5em 0; }
-.profile-links { margin: 0.7em 0 0; }
 .profile-links a {
   font-family: var(--mono);
   font-size: 0.78em;
@@ -160,7 +155,6 @@ a:hover { text-decoration: underline; }
 }
 .profile-links a:hover { border-bottom-color: var(--link); }
 
-/* 経歴 */
 .history {
   border-left: 2px solid var(--border);
   padding-left: 1.4rem;
@@ -225,6 +219,14 @@ a:hover { text-decoration: underline; }
   color: var(--muted);
 }
 .skill-years { text-align: right; }
+.skill-desc {
+  grid-column: 1 / -1;
+  flex-basis: 100%;
+  margin: 0.25em 0 0;
+  font-size: 0.85em;
+  line-height: 1.6;
+  color: var(--muted);
+}
 
 /* 資格・検定 */
 .cert-list {
@@ -380,17 +382,14 @@ details[open] > *:not(summary) { animation: details-in 0.18s ease-out; }
   h1, h2, h3 { scroll-margin-top: 100px; }
   h2 { margin-top: 2.5em; }
 
-  /* 1行目にタイトルと切替ボタン、2行目にナビを回り込ませる */
   .site-header { gap: 0.3rem 0.75rem; padding: 0.5rem 1.5rem; margin-bottom: 3rem; }
   .site-title { order: 1; }
   #theme-toggle { order: 2; }
   .site-nav { order: 3; flex-basis: 100%; flex-wrap: wrap; gap: 0.2rem 0.9rem; }
   .site-nav a { white-space: nowrap; padding: 0.3em 0; }
 
-  /* プロフィール: 画像を上、本文を下に積む */
   .profile { flex-direction: column; gap: 1rem; text-align: center; }
 
-  /* スキル: 名前を1行目、メタ情報を2行目に流す */
   .skill-list li {
     display: flex;
     flex-wrap: wrap;
@@ -402,7 +401,6 @@ details[open] > *:not(summary) { animation: details-in 0.18s ease-out; }
 
   .cert-list li { grid-template-columns: 6.5em 1fr; gap: 0 0.7rem; }
 
-  /* 制作物: サムネイルを上、本文を下に積む */
   .work { flex-direction: column; gap: 1rem; }
   .work + .work { padding-top: 1.6em; }
   .work-thumb { width: 100%; align-items: flex-start; }
