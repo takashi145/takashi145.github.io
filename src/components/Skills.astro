@@ -13,10 +13,13 @@ import { skillGroups } from "../data/skills";
           {group.items.map((skill) => (
             <li>
               <span class="skill-name">{skill.name}</span>
-              <span class="skill-meta">
-                <span class="skill-use">{skill.use}</span>
-                <span class="skill-years">{skill.years}</span>
-              </span>
+              {skill.tags && (
+                <span class="skill-meta">
+                  {skill.tags.map((tag) => (
+                    <span class="skill-tag">{tag}</span>
+                  ))}
+                </span>
+              )}
               {skill.desc && <p class="skill-desc">{skill.desc}</p>}
             </li>
           ))}

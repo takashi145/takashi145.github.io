@@ -208,8 +208,7 @@ a:hover { text-decoration: underline; }
   justify-content: flex-end;
   gap: 0.35em 0.4em;
 }
-.skill-use,
-.skill-years {
+.skill-tag {
   font-family: var(--mono);
   font-size: 0.72em;
   color: var(--muted);
