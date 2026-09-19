@@ -5,57 +5,116 @@ import { works } from "../data/works";
 <section>
   <h2 id="works">制作物</h2>
 
+  <div class="work-grid">
+    {
+      works.map((work, i) => (
+        <article class="work">
+          <span
+            class:list={[
+              "work-thumb",
+              work.image.width === work.image.height && "work-thumb--icon",
+            ]}
+          >
+            {work.videoSrc ? (
+              <video
+                data-src={work.videoSrc}
+                poster={work.image.src}
+                aria-label={work.image.alt}
+                width={work.image.width}
+                height={work.image.height}
+                preload="none"
+                autoplay
+                muted
+                loop
+                playsinline
+              />
+            ) : (
+              <img
+                src={work.image.src}
+                alt={work.image.alt}
+                width={work.image.width}
+                height={work.image.height}
+                loading="lazy"
+              />
+            )}
+          </span>
+          <h3 class="work-title">{work.title}</h3>
+          <p class="work-desc">{work.description}</p>
+          <div class="work-foot">
+            <button
+              class="work-more"
+              type="button"
+              aria-haspopup="dialog"
+              data-dialog={`work-dialog-${i}`}
+            >
+              使用技術・機能を見る
+            </button>
+            <p class="work-links">
+              {work.links.map((link) => (
+                <a href={link.href}>{link.label}</a>
+              ))}
+            </p>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
   {
-    works.map((work) => (
-      <article class="work">
-        <div class="work-thumb">
-          {work.videoSrc ? (
-            <video
-              data-src={work.videoSrc}
-              poster={work.image.src}
-              aria-label={work.image.alt}
-              width={work.image.width}
-              height={work.image.height}
-              preload="none"
-              autoplay
-              muted
-              loop
-              playsinline
-            />
-          ) : (
-            <img
-              src={work.image.src}
-              alt={work.image.alt}
-              width={work.image.width}
-              height={work.image.height}
-              loading="lazy"
-            />
-          )}
+    works.map((work, i) => (
+      <dialog
+        class="work-dialog"
+        id={`work-dialog-${i}`}
+        aria-labelledby={`work-dialog-title-${i}`}
+      >
+        <div class="work-dialog-head">
+          <h3 class="work-dialog-title" id={`work-dialog-title-${i}`}>
+            {work.title}
+          </h3>
+          <button class="work-dialog-close" type="button" aria-label="閉じる">
+            ×
+          </button>
+        </div>
+        <div class="work-dialog-body">
+          <p class="detail-label">使用技術</p>
+          <ul class="work-stack">
+            {work.stack.split("·").map((tech) => (
+              <li>{tech.trim()}</li>
+            ))}
+          </ul>
+          <p class="detail-label">主な機能</p>
+          <ul>
+            {work.features.map((feature) => (
+              <li>{feature}</li>
+            ))}
+          </ul>
           <p class="work-links">
             {work.links.map((link) => (
               <a href={link.href}>{link.label}</a>
             ))}
           </p>
         </div>
-        <div class="work-body">
-          <h3 class="work-title">{work.title}</h3>
-          <p>{work.description}</p>
-          <details>
-            <summary>詳細</summary>
-            <p class="detail-label">使用技術</p>
-            <p class="work-stack">{work.stack}</p>
-            <p class="detail-label">主な機能</p>
-            <ul>
-              {work.features.map((feature) => (
-                <li>{feature}</li>
-              ))}
-            </ul>
-          </details>
-        </div>
-      </article>
+      </dialog>
     ))
   }
 </section>
+
+<noscript>
+  <style>
+    .work-more {
+      display: none;
+    }
+    .work-dialog {
+      display: block;
+      position: static;
+      max-width: none;
+      margin: 1em 0;
+    }
+    .work-dialog-close {
+      display: none;
+    }
+  </style>
+</noscript>
 
 <script>
   if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -65,4 +124,24 @@ import { works } from "../data/works";
         video.src = video.dataset.src!;
       });
   }
+
+  document
+    .querySelectorAll<HTMLButtonElement>(".work-more")
+    .forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const dialog = document.getElementById(trigger.dataset.dialog!);
+        (dialog as HTMLDialogElement | null)?.showModal();
+      });
+    });
+
+  document
+    .querySelectorAll<HTMLDialogElement>(".work-dialog")
+    .forEach((dialog) => {
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+      dialog
+        .querySelector(".work-dialog-close")
+        ?.addEventListener("click", () => dialog.close());
+    });
 </script>
