@@ -113,7 +113,6 @@ a:hover { text-decoration: underline; }
   align-items: center;
   gap: 2.2rem;
   padding: 0.8rem 0 1.2rem;
-  border-bottom: 1px solid var(--border);
 }
 .profile-image {
   flex: none;
