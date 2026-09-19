@@ -9,13 +9,28 @@ import { works } from "../data/works";
     works.map((work) => (
       <article class="work">
         <div class="work-thumb">
-          <img
-            src={work.image.src}
-            alt={work.image.alt}
-            width={work.image.width}
-            height={work.image.height}
-            loading="lazy"
-          />
+          {work.videoSrc ? (
+            <video
+              data-src={work.videoSrc}
+              poster={work.image.src}
+              aria-label={work.image.alt}
+              width={work.image.width}
+              height={work.image.height}
+              preload="none"
+              autoplay
+              muted
+              loop
+              playsinline
+            />
+          ) : (
+            <img
+              src={work.image.src}
+              alt={work.image.alt}
+              width={work.image.width}
+              height={work.image.height}
+              loading="lazy"
+            />
+          )}
           <p class="work-links">
             {work.links.map((link) => (
               <a href={link.href}>{link.label}</a>
@@ -41,3 +56,13 @@ import { works } from "../data/works";
     ))
   }
 </section>
+
+<script>
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document
+      .querySelectorAll<HTMLVideoElement>("video[data-src]")
+      .forEach((video) => {
+        video.src = video.dataset.src!;
+      });
+  }
+</script>

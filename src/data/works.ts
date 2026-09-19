@@ -1,6 +1,7 @@
 export type Work = {
   title: string;
   image: { src: string; alt: string; width: number; height: number };
+  videoSrc?: string;
   links: { label: string; href: string }[];
   description: string;
   stack: string;
@@ -10,7 +11,8 @@ export type Work = {
 export const works: Work[] = [
   {
     title: 'SKYWARD CANVAS',
-    image: { src: '/images/skyward-canvas.gif', alt: 'SKYWARD CANVAS のデモ', width: 240, height: 135 },
+    image: { src: '/images/skyward-canvas.webp', alt: 'SKYWARD CANVAS のデモ', width: 240, height: 135 },
+    videoSrc: '/images/skyward-canvas.mp4',
     links: [
       { label: 'Site', href: 'https://takashi145.github.io/skyward-canvas/' },
       { label: 'Source', href: 'https://github.com/takashi145/skyward-canvas' },

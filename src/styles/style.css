@@ -270,7 +270,8 @@ a:hover { text-decoration: underline; }
   align-items: center;
   gap: 0.6em;
 }
-.work-thumb img { display: block; border-radius: 6px; }
+.work-thumb img,
+.work-thumb video { display: block; max-width: 100%; height: auto; border-radius: 6px; }
 .work-body { flex: 1; min-width: 0; }
 .work-title { margin: 0 0 0.3em; font-size: 1.1em; }
 .detail-label {
