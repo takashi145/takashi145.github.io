@@ -45,4 +45,20 @@ export const works: Work[] = [
       'ツールバー・右クリックメニュー・キーボードショートカットから起動',
     ],
   },
+  {
+    title: 'Taskbar Runner',
+    image: { src: '/images/taskbar-runner.webp', alt: 'Taskbar Runner のデモ', width: 240, height: 135 },
+    videoSrc: '/images/taskbar-runner.mp4',
+    links: [
+      { label: 'Download', href: 'https://github.com/takashi145/taskbar_runner/releases' },
+      { label: 'Source', href: 'https://github.com/takashi145/taskbar_runner' },
+    ],
+    description:
+      'Windowsのタスクバーの上をロボットが走り続ける、常駐型の小さなゲーム',
+    stack: 'C# · .NET 10 · WPF · Win32 API',
+    features: [
+      'ジャンプ・しゃがみ・左右移動で障害物を避けるランゲーム',
+      'ベストスコアや累計距離、速度・サイズ・表示位置などの設定を保存',
+    ],
+  },
 ];
