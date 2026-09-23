@@ -7,8 +7,8 @@ import { skillGroups } from "../data/skills";
 
   {
     skillGroups.map((group) => (
-      <>
-        <h3 class="group-title">{group.group}</h3>
+      <details class="skill-group" open>
+        <summary class="group-title">{group.group}</summary>
         <ul class="skill-list">
           {group.items.map((skill) => (
             <li>
@@ -24,7 +24,7 @@ import { skillGroups } from "../data/skills";
             </li>
           ))}
         </ul>
-      </>
+      </details>
     ))
   }
 </section>

@@ -1,14 +1,31 @@
 ---
 import { works } from "../data/works";
+
+const categories = Array.from(new Set(works.map((work) => work.category)));
 ---
 
 <section>
   <h2 id="works">制作物</h2>
 
+  {
+    categories.length > 1 && (
+      <div class="work-filter" role="group" aria-label="カテゴリで絞り込み">
+        <button type="button" class="work-filter-btn is-active" data-filter="all">
+          すべて
+        </button>
+        {categories.map((category) => (
+          <button type="button" class="work-filter-btn" data-filter={category}>
+            {category}
+          </button>
+        ))}
+      </div>
+    )
+  }
+
   <div class="work-grid">
     {
       works.map((work, i) => (
-        <article class="work">
+        <article class="work" data-category={work.category}>
           <span
             class:list={[
               "work-thumb",
@@ -39,6 +56,7 @@ import { works } from "../data/works";
             )}
           </span>
           <h3 class="work-title">{work.title}</h3>
+          <p class="work-category">{work.category}</p>
           <p class="work-desc">{work.description}</p>
           <div class="work-foot">
             <button
@@ -101,6 +119,9 @@ import { works } from "../data/works";
 
 <noscript>
   <style>
+    .work-filter {
+      display: none;
+    }
     .work-more {
       display: none;
     }
@@ -144,4 +165,17 @@ import { works } from "../data/works";
         .querySelector(".work-dialog-close")
         ?.addEventListener("click", () => dialog.close());
     });
+
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>(".work-filter-btn");
+  const workCards = document.querySelectorAll<HTMLElement>(".work");
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      filterButtons.forEach((b) => b.classList.toggle("is-active", b === button));
+      const filter = button.dataset.filter!;
+      workCards.forEach((card) => {
+        card.hidden = filter !== "all" && card.dataset.category !== filter;
+      });
+    });
+  });
 </script>

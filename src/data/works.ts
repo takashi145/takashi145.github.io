@@ -1,5 +1,6 @@
 export type Work = {
   title: string;
+  category: string;
   image: { src: string; alt: string; width: number; height: number };
   videoSrc?: string;
   links: { label: string; href: string }[];
@@ -11,6 +12,7 @@ export type Work = {
 export const works: Work[] = [
   {
     title: 'SKYWARD CANVAS',
+    category: 'Web',
     image: { src: '/images/skyward-canvas.webp', alt: 'SKYWARD CANVAS のデモ', width: 240, height: 135 },
     videoSrc: '/images/skyward-canvas.mp4',
     links: [
@@ -27,6 +29,7 @@ export const works: Work[] = [
   },
   {
     title: 'ClipPiP',
+    category: 'ブラウザ拡張',
     image: { src: '/images/clip-pip.png', alt: 'ClipPiP のアイコン', width: 128, height: 128 },
     links: [
       {
@@ -47,6 +50,7 @@ export const works: Work[] = [
   },
   {
     title: 'Taskbar Runner',
+    category: 'デスクトップアプリ',
     image: { src: '/images/taskbar-runner.webp', alt: 'Taskbar Runner のデモ', width: 240, height: 135 },
     videoSrc: '/images/taskbar-runner.mp4',
     links: [
@@ -63,6 +67,7 @@ export const works: Work[] = [
   },
   {
     title: 'ChessReplay',
+    category: 'CLIツール',
     image: { src: '/images/chess-replay.webp', alt: 'ChessReplay のリプレイ画面', width: 480, height: 270 },
     links: [
       { label: 'Download', href: 'https://github.com/takashi145/chess-replay/releases/latest' },
@@ -77,6 +82,7 @@ export const works: Work[] = [
   },
   {
     title: 'ChessSandbox',
+    category: 'CLIツール',
     image: { src: '/images/chess-sandbox.webp', alt: 'ChessSandbox のデモ', width: 480, height: 270 },
     videoSrc: '/images/chess-sandbox.mp4',
     links: [
