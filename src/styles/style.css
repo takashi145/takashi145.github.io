@@ -381,19 +381,19 @@ a:hover { text-decoration: underline; }
 
 /* 制作物モーダル */
 .work-dialog {
-  width: min(34rem, calc(100vw - 2rem));
+  width: 34rem;
+  max-width: calc(100vw - 2rem);
   max-height: min(80vh, 44rem);
   padding: 0;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--bg);
   color: var(--color);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .work-dialog::backdrop { background: rgba(0, 0, 0, 0.55); }
 .work-dialog[open] {
-  display: flex;
-  flex-direction: column;
   animation: dialog-in 0.18s ease-out;
 }
 @keyframes dialog-in {
@@ -406,6 +406,8 @@ a:hover { text-decoration: underline; }
   padding: 1.1rem 1.3rem 0.8rem;
   border-bottom: 1px solid var(--border);
   background: var(--surface);
+  position: sticky;
+  top: 0;
 }
 .work-dialog-title { margin: 0; font-size: 1.05em; line-height: 1.5; }
 .work-dialog-close {
@@ -426,9 +428,6 @@ a:hover { text-decoration: underline; }
 .work-dialog-close:hover { color: var(--color); background: var(--border); }
 .work-dialog-body {
   padding: 1.1rem 1.3rem 1.3rem;
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
   font-size: 0.95em;
 }
 .work-dialog-body > p:first-child { margin-top: 0; }
