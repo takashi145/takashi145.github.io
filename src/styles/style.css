@@ -105,7 +105,9 @@ a:hover { text-decoration: underline; }
   border-bottom: 1px solid transparent;
   transition: color 0.15s, border-color 0.15s;
 }
-.site-nav a:hover { color: var(--link); border-bottom-color: var(--link); }
+@media (hover: hover) {
+  .site-nav a:hover { color: var(--link); border-bottom-color: var(--link); }
+}
 .site-nav a.is-current { color: var(--color); border-bottom-color: var(--color); }
 
 .profile {
