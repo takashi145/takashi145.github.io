@@ -61,4 +61,35 @@ export const works: Work[] = [
       'ベストスコアや累計距離、速度・サイズ・表示位置などの設定を保存',
     ],
   },
+  {
+    title: 'ChessReplay',
+    image: { src: '/images/chess-replay.webp', alt: 'ChessReplay のリプレイ画面', width: 480, height: 270 },
+    links: [
+      { label: 'Download', href: 'https://github.com/takashi145/chess-replay/releases/latest' },
+      { label: 'Source', href: 'https://github.com/takashi145/chess-replay' },
+    ],
+    description: 'Chess.com・Lichessの過去の対局を、ターミナル上で再生するCLIツール',
+    stack: 'Go · CLI · TUI',
+    features: [
+      'Chess.com / Lichess のユーザー名を指定して、直近の対局や指定月の対局を一覧から選んで再生',
+      '← → で1手ずつ進める・戻す、盤面の反転',
+    ],
+  },
+  {
+    title: 'ChessSandbox',
+    image: { src: '/images/chess-sandbox.webp', alt: 'ChessSandbox のデモ', width: 480, height: 270 },
+    videoSrc: '/images/chess-sandbox.mp4',
+    links: [
+      { label: 'Download', href: 'https://github.com/takashi145/chess-sandbox/releases/latest' },
+      { label: 'Source', href: 'https://github.com/takashi145/chess-sandbox' },
+    ],
+    description: '局面を試すターミナル上のチェス盤',
+    stack: 'Go · CLI · TUI',
+    features: [
+      '白黒両方を自分で指し、SAN表記（e4, Nf3, O-O など）で手を入力',
+      '入力中の手を盤面にプレビュー。不正な手は赤で表示し、矢印キーで指せる手を選択',
+      '手の巻き戻し・進め、FEN / PGN の読み込みと PGN の書き出し',
+      'セッションを自動保存し、前回の続きから再開',
+    ],
+  },
 ];
